@@ -7,6 +7,42 @@
 #![allow(clippy::unreadable_literal)]
 #![allow(clippy::cyclomatic_complexity)]
 
+#[repr(C)]
+#[derive(Default)]
+pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
+impl<T> __IncompleteArrayField<T> {
+  #[inline]
+  pub fn new() -> Self {
+    __IncompleteArrayField(::std::marker::PhantomData, [])
+  }
+  #[inline]
+  pub unsafe fn as_ptr(&self) -> *const T {
+    ::std::mem::transmute(self)
+  }
+  #[inline]
+  pub unsafe fn as_mut_ptr(&mut self) -> *mut T {
+    ::std::mem::transmute(self)
+  }
+  #[inline]
+  pub unsafe fn as_slice(&self, len: usize) -> &[T] {
+    ::std::slice::from_raw_parts(self.as_ptr(), len)
+  }
+  #[inline]
+  pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
+    ::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
+  }
+}
+impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
+  fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+    fmt.write_str("__IncompleteArrayField")
+  }
+}
+impl<T> ::std::clone::Clone for __IncompleteArrayField<T> {
+  #[inline]
+  fn clone(&self) -> Self {
+    Self::new()
+  }
+}
 pub const NETLINK_ROUTE: u32 = 0;
 pub const NETLINK_UNUSED: u32 = 1;
 pub const NETLINK_USERSOCK: u32 = 2;
@@ -122,6 +158,37 @@ pub const NL_AUTO_SEQ: u32 = 0;
 pub const NL_CACHE_AF_ITER: u32 = 1;
 pub const NL_AUTO_PROVIDE: u32 = 1;
 pub const NL_ALLOCATED_SOCK: u32 = 2;
+pub const NL80211_GENL_NAME: &'static [u8; 8usize] = b"nl80211\0";
+pub const NL80211_MULTICAST_GROUP_CONFIG: &'static [u8; 7usize] = b"config\0";
+pub const NL80211_MULTICAST_GROUP_SCAN: &'static [u8; 5usize] = b"scan\0";
+pub const NL80211_MULTICAST_GROUP_REG: &'static [u8; 11usize] = b"regulatory\0";
+pub const NL80211_MULTICAST_GROUP_MLME: &'static [u8; 5usize] = b"mlme\0";
+pub const NL80211_MULTICAST_GROUP_VENDOR: &'static [u8; 7usize] = b"vendor\0";
+pub const NL80211_MULTICAST_GROUP_NAN: &'static [u8; 4usize] = b"nan\0";
+pub const NL80211_MULTICAST_GROUP_TESTMODE: &'static [u8; 9usize] = b"testmode\0";
+pub const NL80211_WIPHY_NAME_MAXLEN: u32 = 64;
+pub const NL80211_MAX_SUPP_RATES: u32 = 32;
+pub const NL80211_MAX_SUPP_HT_RATES: u32 = 77;
+pub const NL80211_MAX_SUPP_REG_RULES: u32 = 64;
+pub const NL80211_TKIP_DATA_OFFSET_ENCR_KEY: u32 = 0;
+pub const NL80211_TKIP_DATA_OFFSET_TX_MIC_KEY: u32 = 16;
+pub const NL80211_TKIP_DATA_OFFSET_RX_MIC_KEY: u32 = 24;
+pub const NL80211_HT_CAPABILITY_LEN: u32 = 26;
+pub const NL80211_VHT_CAPABILITY_LEN: u32 = 12;
+pub const NL80211_MAX_NR_CIPHER_SUITES: u32 = 5;
+pub const NL80211_MAX_NR_AKM_SUITES: u32 = 2;
+pub const NL80211_MIN_REMAIN_ON_CHANNEL_TIME: u32 = 10;
+pub const NL80211_SCAN_RSSI_THOLD_OFF: i32 = -300;
+pub const NL80211_CQM_TXE_MAX_INTVL: u32 = 1800;
+pub const NL80211_VHT_NSS_MAX: u32 = 8;
+pub const NL80211_KCK_LEN: u32 = 16;
+pub const NL80211_KEK_LEN: u32 = 16;
+pub const NL80211_REPLAY_CTR_LEN: u32 = 8;
+pub const NL80211_CRIT_PROTO_MAX_DURATION: u32 = 5000;
+pub const NL80211_VENDOR_ID_IS_LINUX: u32 = 2147483648;
+pub const NL80211_NAN_FUNC_SERVICE_ID_LEN: u32 = 6;
+pub const NL80211_NAN_FUNC_SERVICE_SPEC_INFO_MAX_LEN: u32 = 255;
+pub const NL80211_NAN_FUNC_SRF_MAX_LEN: u32 = 255;
 pub type __int8_t = ::std::os::raw::c_schar;
 pub type __uint8_t = ::std::os::raw::c_uchar;
 pub type __int16_t = ::std::os::raw::c_short;
@@ -767,6 +834,7 @@ fn bindgen_test_layout_addrinfo() {
     )
   );
 }
+pub type __s8 = ::std::os::raw::c_schar;
 pub type __u8 = ::std::os::raw::c_uchar;
 pub type __u16 = ::std::os::raw::c_ushort;
 pub type __u32 = ::std::os::raw::c_uint;
@@ -3360,3 +3428,1694 @@ extern "C" {
     grp: *const ::std::os::raw::c_char,
   ) -> ::std::os::raw::c_int;
 }
+extern "C" {
+  pub fn if_nametoindex(__ifname: *const ::std::os::raw::c_char) -> ::std::os::raw::c_uint;
+}
+pub const nl80211_commands_NL80211_CMD_UNSPEC: nl80211_commands = 0;
+pub const nl80211_commands_NL80211_CMD_GET_WIPHY: nl80211_commands = 1;
+pub const nl80211_commands_NL80211_CMD_SET_WIPHY: nl80211_commands = 2;
+pub const nl80211_commands_NL80211_CMD_NEW_WIPHY: nl80211_commands = 3;
+pub const nl80211_commands_NL80211_CMD_DEL_WIPHY: nl80211_commands = 4;
+pub const nl80211_commands_NL80211_CMD_GET_INTERFACE: nl80211_commands = 5;
+pub const nl80211_commands_NL80211_CMD_SET_INTERFACE: nl80211_commands = 6;
+pub const nl80211_commands_NL80211_CMD_NEW_INTERFACE: nl80211_commands = 7;
+pub const nl80211_commands_NL80211_CMD_DEL_INTERFACE: nl80211_commands = 8;
+pub const nl80211_commands_NL80211_CMD_GET_KEY: nl80211_commands = 9;
+pub const nl80211_commands_NL80211_CMD_SET_KEY: nl80211_commands = 10;
+pub const nl80211_commands_NL80211_CMD_NEW_KEY: nl80211_commands = 11;
+pub const nl80211_commands_NL80211_CMD_DEL_KEY: nl80211_commands = 12;
+pub const nl80211_commands_NL80211_CMD_GET_BEACON: nl80211_commands = 13;
+pub const nl80211_commands_NL80211_CMD_SET_BEACON: nl80211_commands = 14;
+pub const nl80211_commands_NL80211_CMD_START_AP: nl80211_commands = 15;
+pub const nl80211_commands_NL80211_CMD_NEW_BEACON: nl80211_commands = 15;
+pub const nl80211_commands_NL80211_CMD_STOP_AP: nl80211_commands = 16;
+pub const nl80211_commands_NL80211_CMD_DEL_BEACON: nl80211_commands = 16;
+pub const nl80211_commands_NL80211_CMD_GET_STATION: nl80211_commands = 17;
+pub const nl80211_commands_NL80211_CMD_SET_STATION: nl80211_commands = 18;
+pub const nl80211_commands_NL80211_CMD_NEW_STATION: nl80211_commands = 19;
+pub const nl80211_commands_NL80211_CMD_DEL_STATION: nl80211_commands = 20;
+pub const nl80211_commands_NL80211_CMD_GET_MPATH: nl80211_commands = 21;
+pub const nl80211_commands_NL80211_CMD_SET_MPATH: nl80211_commands = 22;
+pub const nl80211_commands_NL80211_CMD_NEW_MPATH: nl80211_commands = 23;
+pub const nl80211_commands_NL80211_CMD_DEL_MPATH: nl80211_commands = 24;
+pub const nl80211_commands_NL80211_CMD_SET_BSS: nl80211_commands = 25;
+pub const nl80211_commands_NL80211_CMD_SET_REG: nl80211_commands = 26;
+pub const nl80211_commands_NL80211_CMD_REQ_SET_REG: nl80211_commands = 27;
+pub const nl80211_commands_NL80211_CMD_GET_MESH_CONFIG: nl80211_commands = 28;
+pub const nl80211_commands_NL80211_CMD_SET_MESH_CONFIG: nl80211_commands = 29;
+pub const nl80211_commands_NL80211_CMD_SET_MGMT_EXTRA_IE: nl80211_commands = 30;
+pub const nl80211_commands_NL80211_CMD_GET_REG: nl80211_commands = 31;
+pub const nl80211_commands_NL80211_CMD_GET_SCAN: nl80211_commands = 32;
+pub const nl80211_commands_NL80211_CMD_TRIGGER_SCAN: nl80211_commands = 33;
+pub const nl80211_commands_NL80211_CMD_NEW_SCAN_RESULTS: nl80211_commands = 34;
+pub const nl80211_commands_NL80211_CMD_SCAN_ABORTED: nl80211_commands = 35;
+pub const nl80211_commands_NL80211_CMD_REG_CHANGE: nl80211_commands = 36;
+pub const nl80211_commands_NL80211_CMD_AUTHENTICATE: nl80211_commands = 37;
+pub const nl80211_commands_NL80211_CMD_ASSOCIATE: nl80211_commands = 38;
+pub const nl80211_commands_NL80211_CMD_DEAUTHENTICATE: nl80211_commands = 39;
+pub const nl80211_commands_NL80211_CMD_DISASSOCIATE: nl80211_commands = 40;
+pub const nl80211_commands_NL80211_CMD_MICHAEL_MIC_FAILURE: nl80211_commands = 41;
+pub const nl80211_commands_NL80211_CMD_REG_BEACON_HINT: nl80211_commands = 42;
+pub const nl80211_commands_NL80211_CMD_JOIN_IBSS: nl80211_commands = 43;
+pub const nl80211_commands_NL80211_CMD_LEAVE_IBSS: nl80211_commands = 44;
+pub const nl80211_commands_NL80211_CMD_TESTMODE: nl80211_commands = 45;
+pub const nl80211_commands_NL80211_CMD_CONNECT: nl80211_commands = 46;
+pub const nl80211_commands_NL80211_CMD_ROAM: nl80211_commands = 47;
+pub const nl80211_commands_NL80211_CMD_DISCONNECT: nl80211_commands = 48;
+pub const nl80211_commands_NL80211_CMD_SET_WIPHY_NETNS: nl80211_commands = 49;
+pub const nl80211_commands_NL80211_CMD_GET_SURVEY: nl80211_commands = 50;
+pub const nl80211_commands_NL80211_CMD_NEW_SURVEY_RESULTS: nl80211_commands = 51;
+pub const nl80211_commands_NL80211_CMD_SET_PMKSA: nl80211_commands = 52;
+pub const nl80211_commands_NL80211_CMD_DEL_PMKSA: nl80211_commands = 53;
+pub const nl80211_commands_NL80211_CMD_FLUSH_PMKSA: nl80211_commands = 54;
+pub const nl80211_commands_NL80211_CMD_REMAIN_ON_CHANNEL: nl80211_commands = 55;
+pub const nl80211_commands_NL80211_CMD_CANCEL_REMAIN_ON_CHANNEL: nl80211_commands = 56;
+pub const nl80211_commands_NL80211_CMD_SET_TX_BITRATE_MASK: nl80211_commands = 57;
+pub const nl80211_commands_NL80211_CMD_REGISTER_FRAME: nl80211_commands = 58;
+pub const nl80211_commands_NL80211_CMD_REGISTER_ACTION: nl80211_commands = 58;
+pub const nl80211_commands_NL80211_CMD_FRAME: nl80211_commands = 59;
+pub const nl80211_commands_NL80211_CMD_ACTION: nl80211_commands = 59;
+pub const nl80211_commands_NL80211_CMD_FRAME_TX_STATUS: nl80211_commands = 60;
+pub const nl80211_commands_NL80211_CMD_ACTION_TX_STATUS: nl80211_commands = 60;
+pub const nl80211_commands_NL80211_CMD_SET_POWER_SAVE: nl80211_commands = 61;
+pub const nl80211_commands_NL80211_CMD_GET_POWER_SAVE: nl80211_commands = 62;
+pub const nl80211_commands_NL80211_CMD_SET_CQM: nl80211_commands = 63;
+pub const nl80211_commands_NL80211_CMD_NOTIFY_CQM: nl80211_commands = 64;
+pub const nl80211_commands_NL80211_CMD_SET_CHANNEL: nl80211_commands = 65;
+pub const nl80211_commands_NL80211_CMD_SET_WDS_PEER: nl80211_commands = 66;
+pub const nl80211_commands_NL80211_CMD_FRAME_WAIT_CANCEL: nl80211_commands = 67;
+pub const nl80211_commands_NL80211_CMD_JOIN_MESH: nl80211_commands = 68;
+pub const nl80211_commands_NL80211_CMD_LEAVE_MESH: nl80211_commands = 69;
+pub const nl80211_commands_NL80211_CMD_UNPROT_DEAUTHENTICATE: nl80211_commands = 70;
+pub const nl80211_commands_NL80211_CMD_UNPROT_DISASSOCIATE: nl80211_commands = 71;
+pub const nl80211_commands_NL80211_CMD_NEW_PEER_CANDIDATE: nl80211_commands = 72;
+pub const nl80211_commands_NL80211_CMD_GET_WOWLAN: nl80211_commands = 73;
+pub const nl80211_commands_NL80211_CMD_SET_WOWLAN: nl80211_commands = 74;
+pub const nl80211_commands_NL80211_CMD_START_SCHED_SCAN: nl80211_commands = 75;
+pub const nl80211_commands_NL80211_CMD_STOP_SCHED_SCAN: nl80211_commands = 76;
+pub const nl80211_commands_NL80211_CMD_SCHED_SCAN_RESULTS: nl80211_commands = 77;
+pub const nl80211_commands_NL80211_CMD_SCHED_SCAN_STOPPED: nl80211_commands = 78;
+pub const nl80211_commands_NL80211_CMD_SET_REKEY_OFFLOAD: nl80211_commands = 79;
+pub const nl80211_commands_NL80211_CMD_PMKSA_CANDIDATE: nl80211_commands = 80;
+pub const nl80211_commands_NL80211_CMD_TDLS_OPER: nl80211_commands = 81;
+pub const nl80211_commands_NL80211_CMD_TDLS_MGMT: nl80211_commands = 82;
+pub const nl80211_commands_NL80211_CMD_UNEXPECTED_FRAME: nl80211_commands = 83;
+pub const nl80211_commands_NL80211_CMD_PROBE_CLIENT: nl80211_commands = 84;
+pub const nl80211_commands_NL80211_CMD_REGISTER_BEACONS: nl80211_commands = 85;
+pub const nl80211_commands_NL80211_CMD_UNEXPECTED_4ADDR_FRAME: nl80211_commands = 86;
+pub const nl80211_commands_NL80211_CMD_SET_NOACK_MAP: nl80211_commands = 87;
+pub const nl80211_commands_NL80211_CMD_CH_SWITCH_NOTIFY: nl80211_commands = 88;
+pub const nl80211_commands_NL80211_CMD_START_P2P_DEVICE: nl80211_commands = 89;
+pub const nl80211_commands_NL80211_CMD_STOP_P2P_DEVICE: nl80211_commands = 90;
+pub const nl80211_commands_NL80211_CMD_CONN_FAILED: nl80211_commands = 91;
+pub const nl80211_commands_NL80211_CMD_SET_MCAST_RATE: nl80211_commands = 92;
+pub const nl80211_commands_NL80211_CMD_SET_MAC_ACL: nl80211_commands = 93;
+pub const nl80211_commands_NL80211_CMD_RADAR_DETECT: nl80211_commands = 94;
+pub const nl80211_commands_NL80211_CMD_GET_PROTOCOL_FEATURES: nl80211_commands = 95;
+pub const nl80211_commands_NL80211_CMD_UPDATE_FT_IES: nl80211_commands = 96;
+pub const nl80211_commands_NL80211_CMD_FT_EVENT: nl80211_commands = 97;
+pub const nl80211_commands_NL80211_CMD_CRIT_PROTOCOL_START: nl80211_commands = 98;
+pub const nl80211_commands_NL80211_CMD_CRIT_PROTOCOL_STOP: nl80211_commands = 99;
+pub const nl80211_commands_NL80211_CMD_GET_COALESCE: nl80211_commands = 100;
+pub const nl80211_commands_NL80211_CMD_SET_COALESCE: nl80211_commands = 101;
+pub const nl80211_commands_NL80211_CMD_CHANNEL_SWITCH: nl80211_commands = 102;
+pub const nl80211_commands_NL80211_CMD_VENDOR: nl80211_commands = 103;
+pub const nl80211_commands_NL80211_CMD_SET_QOS_MAP: nl80211_commands = 104;
+pub const nl80211_commands_NL80211_CMD_ADD_TX_TS: nl80211_commands = 105;
+pub const nl80211_commands_NL80211_CMD_DEL_TX_TS: nl80211_commands = 106;
+pub const nl80211_commands_NL80211_CMD_GET_MPP: nl80211_commands = 107;
+pub const nl80211_commands_NL80211_CMD_JOIN_OCB: nl80211_commands = 108;
+pub const nl80211_commands_NL80211_CMD_LEAVE_OCB: nl80211_commands = 109;
+pub const nl80211_commands_NL80211_CMD_CH_SWITCH_STARTED_NOTIFY: nl80211_commands = 110;
+pub const nl80211_commands_NL80211_CMD_TDLS_CHANNEL_SWITCH: nl80211_commands = 111;
+pub const nl80211_commands_NL80211_CMD_TDLS_CANCEL_CHANNEL_SWITCH: nl80211_commands = 112;
+pub const nl80211_commands_NL80211_CMD_WIPHY_REG_CHANGE: nl80211_commands = 113;
+pub const nl80211_commands_NL80211_CMD_ABORT_SCAN: nl80211_commands = 114;
+pub const nl80211_commands_NL80211_CMD_START_NAN: nl80211_commands = 115;
+pub const nl80211_commands_NL80211_CMD_STOP_NAN: nl80211_commands = 116;
+pub const nl80211_commands_NL80211_CMD_ADD_NAN_FUNCTION: nl80211_commands = 117;
+pub const nl80211_commands_NL80211_CMD_DEL_NAN_FUNCTION: nl80211_commands = 118;
+pub const nl80211_commands_NL80211_CMD_CHANGE_NAN_CONFIG: nl80211_commands = 119;
+pub const nl80211_commands_NL80211_CMD_NAN_MATCH: nl80211_commands = 120;
+pub const nl80211_commands_NL80211_CMD_SET_MULTICAST_TO_UNICAST: nl80211_commands = 121;
+pub const nl80211_commands_NL80211_CMD_UPDATE_CONNECT_PARAMS: nl80211_commands = 122;
+pub const nl80211_commands_NL80211_CMD_SET_PMK: nl80211_commands = 123;
+pub const nl80211_commands_NL80211_CMD_DEL_PMK: nl80211_commands = 124;
+pub const nl80211_commands_NL80211_CMD_PORT_AUTHORIZED: nl80211_commands = 125;
+pub const nl80211_commands_NL80211_CMD_RELOAD_REGDB: nl80211_commands = 126;
+pub const nl80211_commands_NL80211_CMD_EXTERNAL_AUTH: nl80211_commands = 127;
+pub const nl80211_commands_NL80211_CMD_STA_OPMODE_CHANGED: nl80211_commands = 128;
+pub const nl80211_commands_NL80211_CMD_CONTROL_PORT_FRAME: nl80211_commands = 129;
+pub const nl80211_commands___NL80211_CMD_AFTER_LAST: nl80211_commands = 130;
+pub const nl80211_commands_NL80211_CMD_MAX: nl80211_commands = 129;
+pub type nl80211_commands = u32;
+pub const nl80211_attrs_NL80211_ATTR_UNSPEC: nl80211_attrs = 0;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY: nl80211_attrs = 1;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_NAME: nl80211_attrs = 2;
+pub const nl80211_attrs_NL80211_ATTR_IFINDEX: nl80211_attrs = 3;
+pub const nl80211_attrs_NL80211_ATTR_IFNAME: nl80211_attrs = 4;
+pub const nl80211_attrs_NL80211_ATTR_IFTYPE: nl80211_attrs = 5;
+pub const nl80211_attrs_NL80211_ATTR_MAC: nl80211_attrs = 6;
+pub const nl80211_attrs_NL80211_ATTR_KEY_DATA: nl80211_attrs = 7;
+pub const nl80211_attrs_NL80211_ATTR_KEY_IDX: nl80211_attrs = 8;
+pub const nl80211_attrs_NL80211_ATTR_KEY_CIPHER: nl80211_attrs = 9;
+pub const nl80211_attrs_NL80211_ATTR_KEY_SEQ: nl80211_attrs = 10;
+pub const nl80211_attrs_NL80211_ATTR_KEY_DEFAULT: nl80211_attrs = 11;
+pub const nl80211_attrs_NL80211_ATTR_BEACON_INTERVAL: nl80211_attrs = 12;
+pub const nl80211_attrs_NL80211_ATTR_DTIM_PERIOD: nl80211_attrs = 13;
+pub const nl80211_attrs_NL80211_ATTR_BEACON_HEAD: nl80211_attrs = 14;
+pub const nl80211_attrs_NL80211_ATTR_BEACON_TAIL: nl80211_attrs = 15;
+pub const nl80211_attrs_NL80211_ATTR_STA_AID: nl80211_attrs = 16;
+pub const nl80211_attrs_NL80211_ATTR_STA_FLAGS: nl80211_attrs = 17;
+pub const nl80211_attrs_NL80211_ATTR_STA_LISTEN_INTERVAL: nl80211_attrs = 18;
+pub const nl80211_attrs_NL80211_ATTR_STA_SUPPORTED_RATES: nl80211_attrs = 19;
+pub const nl80211_attrs_NL80211_ATTR_STA_VLAN: nl80211_attrs = 20;
+pub const nl80211_attrs_NL80211_ATTR_STA_INFO: nl80211_attrs = 21;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_BANDS: nl80211_attrs = 22;
+pub const nl80211_attrs_NL80211_ATTR_MNTR_FLAGS: nl80211_attrs = 23;
+pub const nl80211_attrs_NL80211_ATTR_MESH_ID: nl80211_attrs = 24;
+pub const nl80211_attrs_NL80211_ATTR_STA_PLINK_ACTION: nl80211_attrs = 25;
+pub const nl80211_attrs_NL80211_ATTR_MPATH_NEXT_HOP: nl80211_attrs = 26;
+pub const nl80211_attrs_NL80211_ATTR_MPATH_INFO: nl80211_attrs = 27;
+pub const nl80211_attrs_NL80211_ATTR_BSS_CTS_PROT: nl80211_attrs = 28;
+pub const nl80211_attrs_NL80211_ATTR_BSS_SHORT_PREAMBLE: nl80211_attrs = 29;
+pub const nl80211_attrs_NL80211_ATTR_BSS_SHORT_SLOT_TIME: nl80211_attrs = 30;
+pub const nl80211_attrs_NL80211_ATTR_HT_CAPABILITY: nl80211_attrs = 31;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORTED_IFTYPES: nl80211_attrs = 32;
+pub const nl80211_attrs_NL80211_ATTR_REG_ALPHA2: nl80211_attrs = 33;
+pub const nl80211_attrs_NL80211_ATTR_REG_RULES: nl80211_attrs = 34;
+pub const nl80211_attrs_NL80211_ATTR_MESH_CONFIG: nl80211_attrs = 35;
+pub const nl80211_attrs_NL80211_ATTR_BSS_BASIC_RATES: nl80211_attrs = 36;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_TXQ_PARAMS: nl80211_attrs = 37;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_FREQ: nl80211_attrs = 38;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_CHANNEL_TYPE: nl80211_attrs = 39;
+pub const nl80211_attrs_NL80211_ATTR_KEY_DEFAULT_MGMT: nl80211_attrs = 40;
+pub const nl80211_attrs_NL80211_ATTR_MGMT_SUBTYPE: nl80211_attrs = 41;
+pub const nl80211_attrs_NL80211_ATTR_IE: nl80211_attrs = 42;
+pub const nl80211_attrs_NL80211_ATTR_MAX_NUM_SCAN_SSIDS: nl80211_attrs = 43;
+pub const nl80211_attrs_NL80211_ATTR_SCAN_FREQUENCIES: nl80211_attrs = 44;
+pub const nl80211_attrs_NL80211_ATTR_SCAN_SSIDS: nl80211_attrs = 45;
+pub const nl80211_attrs_NL80211_ATTR_GENERATION: nl80211_attrs = 46;
+pub const nl80211_attrs_NL80211_ATTR_BSS: nl80211_attrs = 47;
+pub const nl80211_attrs_NL80211_ATTR_REG_INITIATOR: nl80211_attrs = 48;
+pub const nl80211_attrs_NL80211_ATTR_REG_TYPE: nl80211_attrs = 49;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORTED_COMMANDS: nl80211_attrs = 50;
+pub const nl80211_attrs_NL80211_ATTR_FRAME: nl80211_attrs = 51;
+pub const nl80211_attrs_NL80211_ATTR_SSID: nl80211_attrs = 52;
+pub const nl80211_attrs_NL80211_ATTR_AUTH_TYPE: nl80211_attrs = 53;
+pub const nl80211_attrs_NL80211_ATTR_REASON_CODE: nl80211_attrs = 54;
+pub const nl80211_attrs_NL80211_ATTR_KEY_TYPE: nl80211_attrs = 55;
+pub const nl80211_attrs_NL80211_ATTR_MAX_SCAN_IE_LEN: nl80211_attrs = 56;
+pub const nl80211_attrs_NL80211_ATTR_CIPHER_SUITES: nl80211_attrs = 57;
+pub const nl80211_attrs_NL80211_ATTR_FREQ_BEFORE: nl80211_attrs = 58;
+pub const nl80211_attrs_NL80211_ATTR_FREQ_AFTER: nl80211_attrs = 59;
+pub const nl80211_attrs_NL80211_ATTR_FREQ_FIXED: nl80211_attrs = 60;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_RETRY_SHORT: nl80211_attrs = 61;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_RETRY_LONG: nl80211_attrs = 62;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_FRAG_THRESHOLD: nl80211_attrs = 63;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_RTS_THRESHOLD: nl80211_attrs = 64;
+pub const nl80211_attrs_NL80211_ATTR_TIMED_OUT: nl80211_attrs = 65;
+pub const nl80211_attrs_NL80211_ATTR_USE_MFP: nl80211_attrs = 66;
+pub const nl80211_attrs_NL80211_ATTR_STA_FLAGS2: nl80211_attrs = 67;
+pub const nl80211_attrs_NL80211_ATTR_CONTROL_PORT: nl80211_attrs = 68;
+pub const nl80211_attrs_NL80211_ATTR_TESTDATA: nl80211_attrs = 69;
+pub const nl80211_attrs_NL80211_ATTR_PRIVACY: nl80211_attrs = 70;
+pub const nl80211_attrs_NL80211_ATTR_DISCONNECTED_BY_AP: nl80211_attrs = 71;
+pub const nl80211_attrs_NL80211_ATTR_STATUS_CODE: nl80211_attrs = 72;
+pub const nl80211_attrs_NL80211_ATTR_CIPHER_SUITES_PAIRWISE: nl80211_attrs = 73;
+pub const nl80211_attrs_NL80211_ATTR_CIPHER_SUITE_GROUP: nl80211_attrs = 74;
+pub const nl80211_attrs_NL80211_ATTR_WPA_VERSIONS: nl80211_attrs = 75;
+pub const nl80211_attrs_NL80211_ATTR_AKM_SUITES: nl80211_attrs = 76;
+pub const nl80211_attrs_NL80211_ATTR_REQ_IE: nl80211_attrs = 77;
+pub const nl80211_attrs_NL80211_ATTR_RESP_IE: nl80211_attrs = 78;
+pub const nl80211_attrs_NL80211_ATTR_PREV_BSSID: nl80211_attrs = 79;
+pub const nl80211_attrs_NL80211_ATTR_KEY: nl80211_attrs = 80;
+pub const nl80211_attrs_NL80211_ATTR_KEYS: nl80211_attrs = 81;
+pub const nl80211_attrs_NL80211_ATTR_PID: nl80211_attrs = 82;
+pub const nl80211_attrs_NL80211_ATTR_4ADDR: nl80211_attrs = 83;
+pub const nl80211_attrs_NL80211_ATTR_SURVEY_INFO: nl80211_attrs = 84;
+pub const nl80211_attrs_NL80211_ATTR_PMKID: nl80211_attrs = 85;
+pub const nl80211_attrs_NL80211_ATTR_MAX_NUM_PMKIDS: nl80211_attrs = 86;
+pub const nl80211_attrs_NL80211_ATTR_DURATION: nl80211_attrs = 87;
+pub const nl80211_attrs_NL80211_ATTR_COOKIE: nl80211_attrs = 88;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_COVERAGE_CLASS: nl80211_attrs = 89;
+pub const nl80211_attrs_NL80211_ATTR_TX_RATES: nl80211_attrs = 90;
+pub const nl80211_attrs_NL80211_ATTR_FRAME_MATCH: nl80211_attrs = 91;
+pub const nl80211_attrs_NL80211_ATTR_ACK: nl80211_attrs = 92;
+pub const nl80211_attrs_NL80211_ATTR_PS_STATE: nl80211_attrs = 93;
+pub const nl80211_attrs_NL80211_ATTR_CQM: nl80211_attrs = 94;
+pub const nl80211_attrs_NL80211_ATTR_LOCAL_STATE_CHANGE: nl80211_attrs = 95;
+pub const nl80211_attrs_NL80211_ATTR_AP_ISOLATE: nl80211_attrs = 96;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_TX_POWER_SETTING: nl80211_attrs = 97;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_TX_POWER_LEVEL: nl80211_attrs = 98;
+pub const nl80211_attrs_NL80211_ATTR_TX_FRAME_TYPES: nl80211_attrs = 99;
+pub const nl80211_attrs_NL80211_ATTR_RX_FRAME_TYPES: nl80211_attrs = 100;
+pub const nl80211_attrs_NL80211_ATTR_FRAME_TYPE: nl80211_attrs = 101;
+pub const nl80211_attrs_NL80211_ATTR_CONTROL_PORT_ETHERTYPE: nl80211_attrs = 102;
+pub const nl80211_attrs_NL80211_ATTR_CONTROL_PORT_NO_ENCRYPT: nl80211_attrs = 103;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORT_IBSS_RSN: nl80211_attrs = 104;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_ANTENNA_TX: nl80211_attrs = 105;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_ANTENNA_RX: nl80211_attrs = 106;
+pub const nl80211_attrs_NL80211_ATTR_MCAST_RATE: nl80211_attrs = 107;
+pub const nl80211_attrs_NL80211_ATTR_OFFCHANNEL_TX_OK: nl80211_attrs = 108;
+pub const nl80211_attrs_NL80211_ATTR_BSS_HT_OPMODE: nl80211_attrs = 109;
+pub const nl80211_attrs_NL80211_ATTR_KEY_DEFAULT_TYPES: nl80211_attrs = 110;
+pub const nl80211_attrs_NL80211_ATTR_MAX_REMAIN_ON_CHANNEL_DURATION: nl80211_attrs = 111;
+pub const nl80211_attrs_NL80211_ATTR_MESH_SETUP: nl80211_attrs = 112;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_ANTENNA_AVAIL_TX: nl80211_attrs = 113;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_ANTENNA_AVAIL_RX: nl80211_attrs = 114;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORT_MESH_AUTH: nl80211_attrs = 115;
+pub const nl80211_attrs_NL80211_ATTR_STA_PLINK_STATE: nl80211_attrs = 116;
+pub const nl80211_attrs_NL80211_ATTR_WOWLAN_TRIGGERS: nl80211_attrs = 117;
+pub const nl80211_attrs_NL80211_ATTR_WOWLAN_TRIGGERS_SUPPORTED: nl80211_attrs = 118;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_INTERVAL: nl80211_attrs = 119;
+pub const nl80211_attrs_NL80211_ATTR_INTERFACE_COMBINATIONS: nl80211_attrs = 120;
+pub const nl80211_attrs_NL80211_ATTR_SOFTWARE_IFTYPES: nl80211_attrs = 121;
+pub const nl80211_attrs_NL80211_ATTR_REKEY_DATA: nl80211_attrs = 122;
+pub const nl80211_attrs_NL80211_ATTR_MAX_NUM_SCHED_SCAN_SSIDS: nl80211_attrs = 123;
+pub const nl80211_attrs_NL80211_ATTR_MAX_SCHED_SCAN_IE_LEN: nl80211_attrs = 124;
+pub const nl80211_attrs_NL80211_ATTR_SCAN_SUPP_RATES: nl80211_attrs = 125;
+pub const nl80211_attrs_NL80211_ATTR_HIDDEN_SSID: nl80211_attrs = 126;
+pub const nl80211_attrs_NL80211_ATTR_IE_PROBE_RESP: nl80211_attrs = 127;
+pub const nl80211_attrs_NL80211_ATTR_IE_ASSOC_RESP: nl80211_attrs = 128;
+pub const nl80211_attrs_NL80211_ATTR_STA_WME: nl80211_attrs = 129;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORT_AP_UAPSD: nl80211_attrs = 130;
+pub const nl80211_attrs_NL80211_ATTR_ROAM_SUPPORT: nl80211_attrs = 131;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_MATCH: nl80211_attrs = 132;
+pub const nl80211_attrs_NL80211_ATTR_MAX_MATCH_SETS: nl80211_attrs = 133;
+pub const nl80211_attrs_NL80211_ATTR_PMKSA_CANDIDATE: nl80211_attrs = 134;
+pub const nl80211_attrs_NL80211_ATTR_TX_NO_CCK_RATE: nl80211_attrs = 135;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_ACTION: nl80211_attrs = 136;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_DIALOG_TOKEN: nl80211_attrs = 137;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_OPERATION: nl80211_attrs = 138;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_SUPPORT: nl80211_attrs = 139;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_EXTERNAL_SETUP: nl80211_attrs = 140;
+pub const nl80211_attrs_NL80211_ATTR_DEVICE_AP_SME: nl80211_attrs = 141;
+pub const nl80211_attrs_NL80211_ATTR_DONT_WAIT_FOR_ACK: nl80211_attrs = 142;
+pub const nl80211_attrs_NL80211_ATTR_FEATURE_FLAGS: nl80211_attrs = 143;
+pub const nl80211_attrs_NL80211_ATTR_PROBE_RESP_OFFLOAD: nl80211_attrs = 144;
+pub const nl80211_attrs_NL80211_ATTR_PROBE_RESP: nl80211_attrs = 145;
+pub const nl80211_attrs_NL80211_ATTR_DFS_REGION: nl80211_attrs = 146;
+pub const nl80211_attrs_NL80211_ATTR_DISABLE_HT: nl80211_attrs = 147;
+pub const nl80211_attrs_NL80211_ATTR_HT_CAPABILITY_MASK: nl80211_attrs = 148;
+pub const nl80211_attrs_NL80211_ATTR_NOACK_MAP: nl80211_attrs = 149;
+pub const nl80211_attrs_NL80211_ATTR_INACTIVITY_TIMEOUT: nl80211_attrs = 150;
+pub const nl80211_attrs_NL80211_ATTR_RX_SIGNAL_DBM: nl80211_attrs = 151;
+pub const nl80211_attrs_NL80211_ATTR_BG_SCAN_PERIOD: nl80211_attrs = 152;
+pub const nl80211_attrs_NL80211_ATTR_WDEV: nl80211_attrs = 153;
+pub const nl80211_attrs_NL80211_ATTR_USER_REG_HINT_TYPE: nl80211_attrs = 154;
+pub const nl80211_attrs_NL80211_ATTR_CONN_FAILED_REASON: nl80211_attrs = 155;
+pub const nl80211_attrs_NL80211_ATTR_AUTH_DATA: nl80211_attrs = 156;
+pub const nl80211_attrs_NL80211_ATTR_VHT_CAPABILITY: nl80211_attrs = 157;
+pub const nl80211_attrs_NL80211_ATTR_SCAN_FLAGS: nl80211_attrs = 158;
+pub const nl80211_attrs_NL80211_ATTR_CHANNEL_WIDTH: nl80211_attrs = 159;
+pub const nl80211_attrs_NL80211_ATTR_CENTER_FREQ1: nl80211_attrs = 160;
+pub const nl80211_attrs_NL80211_ATTR_CENTER_FREQ2: nl80211_attrs = 161;
+pub const nl80211_attrs_NL80211_ATTR_P2P_CTWINDOW: nl80211_attrs = 162;
+pub const nl80211_attrs_NL80211_ATTR_P2P_OPPPS: nl80211_attrs = 163;
+pub const nl80211_attrs_NL80211_ATTR_LOCAL_MESH_POWER_MODE: nl80211_attrs = 164;
+pub const nl80211_attrs_NL80211_ATTR_ACL_POLICY: nl80211_attrs = 165;
+pub const nl80211_attrs_NL80211_ATTR_MAC_ADDRS: nl80211_attrs = 166;
+pub const nl80211_attrs_NL80211_ATTR_MAC_ACL_MAX: nl80211_attrs = 167;
+pub const nl80211_attrs_NL80211_ATTR_RADAR_EVENT: nl80211_attrs = 168;
+pub const nl80211_attrs_NL80211_ATTR_EXT_CAPA: nl80211_attrs = 169;
+pub const nl80211_attrs_NL80211_ATTR_EXT_CAPA_MASK: nl80211_attrs = 170;
+pub const nl80211_attrs_NL80211_ATTR_STA_CAPABILITY: nl80211_attrs = 171;
+pub const nl80211_attrs_NL80211_ATTR_STA_EXT_CAPABILITY: nl80211_attrs = 172;
+pub const nl80211_attrs_NL80211_ATTR_PROTOCOL_FEATURES: nl80211_attrs = 173;
+pub const nl80211_attrs_NL80211_ATTR_SPLIT_WIPHY_DUMP: nl80211_attrs = 174;
+pub const nl80211_attrs_NL80211_ATTR_DISABLE_VHT: nl80211_attrs = 175;
+pub const nl80211_attrs_NL80211_ATTR_VHT_CAPABILITY_MASK: nl80211_attrs = 176;
+pub const nl80211_attrs_NL80211_ATTR_MDID: nl80211_attrs = 177;
+pub const nl80211_attrs_NL80211_ATTR_IE_RIC: nl80211_attrs = 178;
+pub const nl80211_attrs_NL80211_ATTR_CRIT_PROT_ID: nl80211_attrs = 179;
+pub const nl80211_attrs_NL80211_ATTR_MAX_CRIT_PROT_DURATION: nl80211_attrs = 180;
+pub const nl80211_attrs_NL80211_ATTR_PEER_AID: nl80211_attrs = 181;
+pub const nl80211_attrs_NL80211_ATTR_COALESCE_RULE: nl80211_attrs = 182;
+pub const nl80211_attrs_NL80211_ATTR_CH_SWITCH_COUNT: nl80211_attrs = 183;
+pub const nl80211_attrs_NL80211_ATTR_CH_SWITCH_BLOCK_TX: nl80211_attrs = 184;
+pub const nl80211_attrs_NL80211_ATTR_CSA_IES: nl80211_attrs = 185;
+pub const nl80211_attrs_NL80211_ATTR_CSA_C_OFF_BEACON: nl80211_attrs = 186;
+pub const nl80211_attrs_NL80211_ATTR_CSA_C_OFF_PRESP: nl80211_attrs = 187;
+pub const nl80211_attrs_NL80211_ATTR_RXMGMT_FLAGS: nl80211_attrs = 188;
+pub const nl80211_attrs_NL80211_ATTR_STA_SUPPORTED_CHANNELS: nl80211_attrs = 189;
+pub const nl80211_attrs_NL80211_ATTR_STA_SUPPORTED_OPER_CLASSES: nl80211_attrs = 190;
+pub const nl80211_attrs_NL80211_ATTR_HANDLE_DFS: nl80211_attrs = 191;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORT_5_MHZ: nl80211_attrs = 192;
+pub const nl80211_attrs_NL80211_ATTR_SUPPORT_10_MHZ: nl80211_attrs = 193;
+pub const nl80211_attrs_NL80211_ATTR_OPMODE_NOTIF: nl80211_attrs = 194;
+pub const nl80211_attrs_NL80211_ATTR_VENDOR_ID: nl80211_attrs = 195;
+pub const nl80211_attrs_NL80211_ATTR_VENDOR_SUBCMD: nl80211_attrs = 196;
+pub const nl80211_attrs_NL80211_ATTR_VENDOR_DATA: nl80211_attrs = 197;
+pub const nl80211_attrs_NL80211_ATTR_VENDOR_EVENTS: nl80211_attrs = 198;
+pub const nl80211_attrs_NL80211_ATTR_QOS_MAP: nl80211_attrs = 199;
+pub const nl80211_attrs_NL80211_ATTR_MAC_HINT: nl80211_attrs = 200;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_FREQ_HINT: nl80211_attrs = 201;
+pub const nl80211_attrs_NL80211_ATTR_MAX_AP_ASSOC_STA: nl80211_attrs = 202;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_PEER_CAPABILITY: nl80211_attrs = 203;
+pub const nl80211_attrs_NL80211_ATTR_SOCKET_OWNER: nl80211_attrs = 204;
+pub const nl80211_attrs_NL80211_ATTR_CSA_C_OFFSETS_TX: nl80211_attrs = 205;
+pub const nl80211_attrs_NL80211_ATTR_MAX_CSA_COUNTERS: nl80211_attrs = 206;
+pub const nl80211_attrs_NL80211_ATTR_TDLS_INITIATOR: nl80211_attrs = 207;
+pub const nl80211_attrs_NL80211_ATTR_USE_RRM: nl80211_attrs = 208;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_DYN_ACK: nl80211_attrs = 209;
+pub const nl80211_attrs_NL80211_ATTR_TSID: nl80211_attrs = 210;
+pub const nl80211_attrs_NL80211_ATTR_USER_PRIO: nl80211_attrs = 211;
+pub const nl80211_attrs_NL80211_ATTR_ADMITTED_TIME: nl80211_attrs = 212;
+pub const nl80211_attrs_NL80211_ATTR_SMPS_MODE: nl80211_attrs = 213;
+pub const nl80211_attrs_NL80211_ATTR_OPER_CLASS: nl80211_attrs = 214;
+pub const nl80211_attrs_NL80211_ATTR_MAC_MASK: nl80211_attrs = 215;
+pub const nl80211_attrs_NL80211_ATTR_WIPHY_SELF_MANAGED_REG: nl80211_attrs = 216;
+pub const nl80211_attrs_NL80211_ATTR_EXT_FEATURES: nl80211_attrs = 217;
+pub const nl80211_attrs_NL80211_ATTR_SURVEY_RADIO_STATS: nl80211_attrs = 218;
+pub const nl80211_attrs_NL80211_ATTR_NETNS_FD: nl80211_attrs = 219;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_DELAY: nl80211_attrs = 220;
+pub const nl80211_attrs_NL80211_ATTR_REG_INDOOR: nl80211_attrs = 221;
+pub const nl80211_attrs_NL80211_ATTR_MAX_NUM_SCHED_SCAN_PLANS: nl80211_attrs = 222;
+pub const nl80211_attrs_NL80211_ATTR_MAX_SCAN_PLAN_INTERVAL: nl80211_attrs = 223;
+pub const nl80211_attrs_NL80211_ATTR_MAX_SCAN_PLAN_ITERATIONS: nl80211_attrs = 224;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_PLANS: nl80211_attrs = 225;
+pub const nl80211_attrs_NL80211_ATTR_PBSS: nl80211_attrs = 226;
+pub const nl80211_attrs_NL80211_ATTR_BSS_SELECT: nl80211_attrs = 227;
+pub const nl80211_attrs_NL80211_ATTR_STA_SUPPORT_P2P_PS: nl80211_attrs = 228;
+pub const nl80211_attrs_NL80211_ATTR_PAD: nl80211_attrs = 229;
+pub const nl80211_attrs_NL80211_ATTR_IFTYPE_EXT_CAPA: nl80211_attrs = 230;
+pub const nl80211_attrs_NL80211_ATTR_MU_MIMO_GROUP_DATA: nl80211_attrs = 231;
+pub const nl80211_attrs_NL80211_ATTR_MU_MIMO_FOLLOW_MAC_ADDR: nl80211_attrs = 232;
+pub const nl80211_attrs_NL80211_ATTR_SCAN_START_TIME_TSF: nl80211_attrs = 233;
+pub const nl80211_attrs_NL80211_ATTR_SCAN_START_TIME_TSF_BSSID: nl80211_attrs = 234;
+pub const nl80211_attrs_NL80211_ATTR_MEASUREMENT_DURATION: nl80211_attrs = 235;
+pub const nl80211_attrs_NL80211_ATTR_MEASUREMENT_DURATION_MANDATORY: nl80211_attrs = 236;
+pub const nl80211_attrs_NL80211_ATTR_MESH_PEER_AID: nl80211_attrs = 237;
+pub const nl80211_attrs_NL80211_ATTR_NAN_MASTER_PREF: nl80211_attrs = 238;
+pub const nl80211_attrs_NL80211_ATTR_BANDS: nl80211_attrs = 239;
+pub const nl80211_attrs_NL80211_ATTR_NAN_FUNC: nl80211_attrs = 240;
+pub const nl80211_attrs_NL80211_ATTR_NAN_MATCH: nl80211_attrs = 241;
+pub const nl80211_attrs_NL80211_ATTR_FILS_KEK: nl80211_attrs = 242;
+pub const nl80211_attrs_NL80211_ATTR_FILS_NONCES: nl80211_attrs = 243;
+pub const nl80211_attrs_NL80211_ATTR_MULTICAST_TO_UNICAST_ENABLED: nl80211_attrs = 244;
+pub const nl80211_attrs_NL80211_ATTR_BSSID: nl80211_attrs = 245;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_RELATIVE_RSSI: nl80211_attrs = 246;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_RSSI_ADJUST: nl80211_attrs = 247;
+pub const nl80211_attrs_NL80211_ATTR_TIMEOUT_REASON: nl80211_attrs = 248;
+pub const nl80211_attrs_NL80211_ATTR_FILS_ERP_USERNAME: nl80211_attrs = 249;
+pub const nl80211_attrs_NL80211_ATTR_FILS_ERP_REALM: nl80211_attrs = 250;
+pub const nl80211_attrs_NL80211_ATTR_FILS_ERP_NEXT_SEQ_NUM: nl80211_attrs = 251;
+pub const nl80211_attrs_NL80211_ATTR_FILS_ERP_RRK: nl80211_attrs = 252;
+pub const nl80211_attrs_NL80211_ATTR_FILS_CACHE_ID: nl80211_attrs = 253;
+pub const nl80211_attrs_NL80211_ATTR_PMK: nl80211_attrs = 254;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_MULTI: nl80211_attrs = 255;
+pub const nl80211_attrs_NL80211_ATTR_SCHED_SCAN_MAX_REQS: nl80211_attrs = 256;
+pub const nl80211_attrs_NL80211_ATTR_WANT_1X_4WAY_HS: nl80211_attrs = 257;
+pub const nl80211_attrs_NL80211_ATTR_PMKR0_NAME: nl80211_attrs = 258;
+pub const nl80211_attrs_NL80211_ATTR_PORT_AUTHORIZED: nl80211_attrs = 259;
+pub const nl80211_attrs_NL80211_ATTR_EXTERNAL_AUTH_ACTION: nl80211_attrs = 260;
+pub const nl80211_attrs_NL80211_ATTR_EXTERNAL_AUTH_SUPPORT: nl80211_attrs = 261;
+pub const nl80211_attrs_NL80211_ATTR_NSS: nl80211_attrs = 262;
+pub const nl80211_attrs_NL80211_ATTR_ACK_SIGNAL: nl80211_attrs = 263;
+pub const nl80211_attrs_NL80211_ATTR_CONTROL_PORT_OVER_NL80211: nl80211_attrs = 264;
+pub const nl80211_attrs_NL80211_ATTR_TXQ_STATS: nl80211_attrs = 265;
+pub const nl80211_attrs_NL80211_ATTR_TXQ_LIMIT: nl80211_attrs = 266;
+pub const nl80211_attrs_NL80211_ATTR_TXQ_MEMORY_LIMIT: nl80211_attrs = 267;
+pub const nl80211_attrs_NL80211_ATTR_TXQ_QUANTUM: nl80211_attrs = 268;
+pub const nl80211_attrs___NL80211_ATTR_AFTER_LAST: nl80211_attrs = 269;
+pub const nl80211_attrs_NUM_NL80211_ATTR: nl80211_attrs = 269;
+pub const nl80211_attrs_NL80211_ATTR_MAX: nl80211_attrs = 268;
+pub type nl80211_attrs = u32;
+pub const nl80211_iftype_NL80211_IFTYPE_UNSPECIFIED: nl80211_iftype = 0;
+pub const nl80211_iftype_NL80211_IFTYPE_ADHOC: nl80211_iftype = 1;
+pub const nl80211_iftype_NL80211_IFTYPE_STATION: nl80211_iftype = 2;
+pub const nl80211_iftype_NL80211_IFTYPE_AP: nl80211_iftype = 3;
+pub const nl80211_iftype_NL80211_IFTYPE_AP_VLAN: nl80211_iftype = 4;
+pub const nl80211_iftype_NL80211_IFTYPE_WDS: nl80211_iftype = 5;
+pub const nl80211_iftype_NL80211_IFTYPE_MONITOR: nl80211_iftype = 6;
+pub const nl80211_iftype_NL80211_IFTYPE_MESH_POINT: nl80211_iftype = 7;
+pub const nl80211_iftype_NL80211_IFTYPE_P2P_CLIENT: nl80211_iftype = 8;
+pub const nl80211_iftype_NL80211_IFTYPE_P2P_GO: nl80211_iftype = 9;
+pub const nl80211_iftype_NL80211_IFTYPE_P2P_DEVICE: nl80211_iftype = 10;
+pub const nl80211_iftype_NL80211_IFTYPE_OCB: nl80211_iftype = 11;
+pub const nl80211_iftype_NL80211_IFTYPE_NAN: nl80211_iftype = 12;
+pub const nl80211_iftype_NUM_NL80211_IFTYPES: nl80211_iftype = 13;
+pub const nl80211_iftype_NL80211_IFTYPE_MAX: nl80211_iftype = 12;
+pub type nl80211_iftype = u32;
+pub const nl80211_sta_flags___NL80211_STA_FLAG_INVALID: nl80211_sta_flags = 0;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_AUTHORIZED: nl80211_sta_flags = 1;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_SHORT_PREAMBLE: nl80211_sta_flags = 2;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_WME: nl80211_sta_flags = 3;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_MFP: nl80211_sta_flags = 4;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_AUTHENTICATED: nl80211_sta_flags = 5;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_TDLS_PEER: nl80211_sta_flags = 6;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_ASSOCIATED: nl80211_sta_flags = 7;
+pub const nl80211_sta_flags___NL80211_STA_FLAG_AFTER_LAST: nl80211_sta_flags = 8;
+pub const nl80211_sta_flags_NL80211_STA_FLAG_MAX: nl80211_sta_flags = 7;
+pub type nl80211_sta_flags = u32;
+pub const nl80211_sta_p2p_ps_status_NL80211_P2P_PS_UNSUPPORTED: nl80211_sta_p2p_ps_status = 0;
+pub const nl80211_sta_p2p_ps_status_NL80211_P2P_PS_SUPPORTED: nl80211_sta_p2p_ps_status = 1;
+pub const nl80211_sta_p2p_ps_status_NUM_NL80211_P2P_PS_STATUS: nl80211_sta_p2p_ps_status = 2;
+pub type nl80211_sta_p2p_ps_status = u32;
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_sta_flag_update {
+  pub mask: __u32,
+  pub set: __u32,
+}
+#[test]
+fn bindgen_test_layout_nl80211_sta_flag_update() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_sta_flag_update>(),
+    8usize,
+    concat!("Size of: ", stringify!(nl80211_sta_flag_update))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_sta_flag_update>(),
+    1usize,
+    concat!("Alignment of ", stringify!(nl80211_sta_flag_update))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_sta_flag_update>())).mask as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_sta_flag_update),
+      "::",
+      stringify!(mask)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_sta_flag_update>())).set as *const _ as usize },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_sta_flag_update),
+      "::",
+      stringify!(set)
+    )
+  );
+}
+pub const nl80211_rate_info___NL80211_RATE_INFO_INVALID: nl80211_rate_info = 0;
+pub const nl80211_rate_info_NL80211_RATE_INFO_BITRATE: nl80211_rate_info = 1;
+pub const nl80211_rate_info_NL80211_RATE_INFO_MCS: nl80211_rate_info = 2;
+pub const nl80211_rate_info_NL80211_RATE_INFO_40_MHZ_WIDTH: nl80211_rate_info = 3;
+pub const nl80211_rate_info_NL80211_RATE_INFO_SHORT_GI: nl80211_rate_info = 4;
+pub const nl80211_rate_info_NL80211_RATE_INFO_BITRATE32: nl80211_rate_info = 5;
+pub const nl80211_rate_info_NL80211_RATE_INFO_VHT_MCS: nl80211_rate_info = 6;
+pub const nl80211_rate_info_NL80211_RATE_INFO_VHT_NSS: nl80211_rate_info = 7;
+pub const nl80211_rate_info_NL80211_RATE_INFO_80_MHZ_WIDTH: nl80211_rate_info = 8;
+pub const nl80211_rate_info_NL80211_RATE_INFO_80P80_MHZ_WIDTH: nl80211_rate_info = 9;
+pub const nl80211_rate_info_NL80211_RATE_INFO_160_MHZ_WIDTH: nl80211_rate_info = 10;
+pub const nl80211_rate_info_NL80211_RATE_INFO_10_MHZ_WIDTH: nl80211_rate_info = 11;
+pub const nl80211_rate_info_NL80211_RATE_INFO_5_MHZ_WIDTH: nl80211_rate_info = 12;
+pub const nl80211_rate_info___NL80211_RATE_INFO_AFTER_LAST: nl80211_rate_info = 13;
+pub const nl80211_rate_info_NL80211_RATE_INFO_MAX: nl80211_rate_info = 12;
+pub type nl80211_rate_info = u32;
+pub const nl80211_sta_bss_param___NL80211_STA_BSS_PARAM_INVALID: nl80211_sta_bss_param = 0;
+pub const nl80211_sta_bss_param_NL80211_STA_BSS_PARAM_CTS_PROT: nl80211_sta_bss_param = 1;
+pub const nl80211_sta_bss_param_NL80211_STA_BSS_PARAM_SHORT_PREAMBLE: nl80211_sta_bss_param = 2;
+pub const nl80211_sta_bss_param_NL80211_STA_BSS_PARAM_SHORT_SLOT_TIME: nl80211_sta_bss_param = 3;
+pub const nl80211_sta_bss_param_NL80211_STA_BSS_PARAM_DTIM_PERIOD: nl80211_sta_bss_param = 4;
+pub const nl80211_sta_bss_param_NL80211_STA_BSS_PARAM_BEACON_INTERVAL: nl80211_sta_bss_param = 5;
+pub const nl80211_sta_bss_param___NL80211_STA_BSS_PARAM_AFTER_LAST: nl80211_sta_bss_param = 6;
+pub const nl80211_sta_bss_param_NL80211_STA_BSS_PARAM_MAX: nl80211_sta_bss_param = 5;
+pub type nl80211_sta_bss_param = u32;
+pub const nl80211_sta_info___NL80211_STA_INFO_INVALID: nl80211_sta_info = 0;
+pub const nl80211_sta_info_NL80211_STA_INFO_INACTIVE_TIME: nl80211_sta_info = 1;
+pub const nl80211_sta_info_NL80211_STA_INFO_RX_BYTES: nl80211_sta_info = 2;
+pub const nl80211_sta_info_NL80211_STA_INFO_TX_BYTES: nl80211_sta_info = 3;
+pub const nl80211_sta_info_NL80211_STA_INFO_LLID: nl80211_sta_info = 4;
+pub const nl80211_sta_info_NL80211_STA_INFO_PLID: nl80211_sta_info = 5;
+pub const nl80211_sta_info_NL80211_STA_INFO_PLINK_STATE: nl80211_sta_info = 6;
+pub const nl80211_sta_info_NL80211_STA_INFO_SIGNAL: nl80211_sta_info = 7;
+pub const nl80211_sta_info_NL80211_STA_INFO_TX_BITRATE: nl80211_sta_info = 8;
+pub const nl80211_sta_info_NL80211_STA_INFO_RX_PACKETS: nl80211_sta_info = 9;
+pub const nl80211_sta_info_NL80211_STA_INFO_TX_PACKETS: nl80211_sta_info = 10;
+pub const nl80211_sta_info_NL80211_STA_INFO_TX_RETRIES: nl80211_sta_info = 11;
+pub const nl80211_sta_info_NL80211_STA_INFO_TX_FAILED: nl80211_sta_info = 12;
+pub const nl80211_sta_info_NL80211_STA_INFO_SIGNAL_AVG: nl80211_sta_info = 13;
+pub const nl80211_sta_info_NL80211_STA_INFO_RX_BITRATE: nl80211_sta_info = 14;
+pub const nl80211_sta_info_NL80211_STA_INFO_BSS_PARAM: nl80211_sta_info = 15;
+pub const nl80211_sta_info_NL80211_STA_INFO_CONNECTED_TIME: nl80211_sta_info = 16;
+pub const nl80211_sta_info_NL80211_STA_INFO_STA_FLAGS: nl80211_sta_info = 17;
+pub const nl80211_sta_info_NL80211_STA_INFO_BEACON_LOSS: nl80211_sta_info = 18;
+pub const nl80211_sta_info_NL80211_STA_INFO_T_OFFSET: nl80211_sta_info = 19;
+pub const nl80211_sta_info_NL80211_STA_INFO_LOCAL_PM: nl80211_sta_info = 20;
+pub const nl80211_sta_info_NL80211_STA_INFO_PEER_PM: nl80211_sta_info = 21;
+pub const nl80211_sta_info_NL80211_STA_INFO_NONPEER_PM: nl80211_sta_info = 22;
+pub const nl80211_sta_info_NL80211_STA_INFO_RX_BYTES64: nl80211_sta_info = 23;
+pub const nl80211_sta_info_NL80211_STA_INFO_TX_BYTES64: nl80211_sta_info = 24;
+pub const nl80211_sta_info_NL80211_STA_INFO_CHAIN_SIGNAL: nl80211_sta_info = 25;
+pub const nl80211_sta_info_NL80211_STA_INFO_CHAIN_SIGNAL_AVG: nl80211_sta_info = 26;
+pub const nl80211_sta_info_NL80211_STA_INFO_EXPECTED_THROUGHPUT: nl80211_sta_info = 27;
+pub const nl80211_sta_info_NL80211_STA_INFO_RX_DROP_MISC: nl80211_sta_info = 28;
+pub const nl80211_sta_info_NL80211_STA_INFO_BEACON_RX: nl80211_sta_info = 29;
+pub const nl80211_sta_info_NL80211_STA_INFO_BEACON_SIGNAL_AVG: nl80211_sta_info = 30;
+pub const nl80211_sta_info_NL80211_STA_INFO_TID_STATS: nl80211_sta_info = 31;
+pub const nl80211_sta_info_NL80211_STA_INFO_RX_DURATION: nl80211_sta_info = 32;
+pub const nl80211_sta_info_NL80211_STA_INFO_PAD: nl80211_sta_info = 33;
+pub const nl80211_sta_info_NL80211_STA_INFO_ACK_SIGNAL: nl80211_sta_info = 34;
+pub const nl80211_sta_info_NL80211_STA_INFO_DATA_ACK_SIGNAL_AVG: nl80211_sta_info = 35;
+pub const nl80211_sta_info___NL80211_STA_INFO_AFTER_LAST: nl80211_sta_info = 36;
+pub const nl80211_sta_info_NL80211_STA_INFO_MAX: nl80211_sta_info = 35;
+pub type nl80211_sta_info = u32;
+pub const nl80211_tid_stats___NL80211_TID_STATS_INVALID: nl80211_tid_stats = 0;
+pub const nl80211_tid_stats_NL80211_TID_STATS_RX_MSDU: nl80211_tid_stats = 1;
+pub const nl80211_tid_stats_NL80211_TID_STATS_TX_MSDU: nl80211_tid_stats = 2;
+pub const nl80211_tid_stats_NL80211_TID_STATS_TX_MSDU_RETRIES: nl80211_tid_stats = 3;
+pub const nl80211_tid_stats_NL80211_TID_STATS_TX_MSDU_FAILED: nl80211_tid_stats = 4;
+pub const nl80211_tid_stats_NL80211_TID_STATS_PAD: nl80211_tid_stats = 5;
+pub const nl80211_tid_stats_NL80211_TID_STATS_TXQ_STATS: nl80211_tid_stats = 6;
+pub const nl80211_tid_stats_NUM_NL80211_TID_STATS: nl80211_tid_stats = 7;
+pub const nl80211_tid_stats_NL80211_TID_STATS_MAX: nl80211_tid_stats = 6;
+pub type nl80211_tid_stats = u32;
+pub const nl80211_txq_stats___NL80211_TXQ_STATS_INVALID: nl80211_txq_stats = 0;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_BACKLOG_BYTES: nl80211_txq_stats = 1;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_BACKLOG_PACKETS: nl80211_txq_stats = 2;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_FLOWS: nl80211_txq_stats = 3;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_DROPS: nl80211_txq_stats = 4;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_ECN_MARKS: nl80211_txq_stats = 5;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_OVERLIMIT: nl80211_txq_stats = 6;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_OVERMEMORY: nl80211_txq_stats = 7;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_COLLISIONS: nl80211_txq_stats = 8;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_TX_BYTES: nl80211_txq_stats = 9;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_TX_PACKETS: nl80211_txq_stats = 10;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_MAX_FLOWS: nl80211_txq_stats = 11;
+pub const nl80211_txq_stats_NUM_NL80211_TXQ_STATS: nl80211_txq_stats = 12;
+pub const nl80211_txq_stats_NL80211_TXQ_STATS_MAX: nl80211_txq_stats = 11;
+pub type nl80211_txq_stats = u32;
+pub const nl80211_mpath_flags_NL80211_MPATH_FLAG_ACTIVE: nl80211_mpath_flags = 1;
+pub const nl80211_mpath_flags_NL80211_MPATH_FLAG_RESOLVING: nl80211_mpath_flags = 2;
+pub const nl80211_mpath_flags_NL80211_MPATH_FLAG_SN_VALID: nl80211_mpath_flags = 4;
+pub const nl80211_mpath_flags_NL80211_MPATH_FLAG_FIXED: nl80211_mpath_flags = 8;
+pub const nl80211_mpath_flags_NL80211_MPATH_FLAG_RESOLVED: nl80211_mpath_flags = 16;
+pub type nl80211_mpath_flags = u32;
+pub const nl80211_mpath_info___NL80211_MPATH_INFO_INVALID: nl80211_mpath_info = 0;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_FRAME_QLEN: nl80211_mpath_info = 1;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_SN: nl80211_mpath_info = 2;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_METRIC: nl80211_mpath_info = 3;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_EXPTIME: nl80211_mpath_info = 4;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_FLAGS: nl80211_mpath_info = 5;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_DISCOVERY_TIMEOUT: nl80211_mpath_info = 6;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_DISCOVERY_RETRIES: nl80211_mpath_info = 7;
+pub const nl80211_mpath_info___NL80211_MPATH_INFO_AFTER_LAST: nl80211_mpath_info = 8;
+pub const nl80211_mpath_info_NL80211_MPATH_INFO_MAX: nl80211_mpath_info = 7;
+pub type nl80211_mpath_info = u32;
+pub const nl80211_band_attr___NL80211_BAND_ATTR_INVALID: nl80211_band_attr = 0;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_FREQS: nl80211_band_attr = 1;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_RATES: nl80211_band_attr = 2;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_HT_MCS_SET: nl80211_band_attr = 3;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_HT_CAPA: nl80211_band_attr = 4;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_HT_AMPDU_FACTOR: nl80211_band_attr = 5;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_HT_AMPDU_DENSITY: nl80211_band_attr = 6;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_VHT_MCS_SET: nl80211_band_attr = 7;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_VHT_CAPA: nl80211_band_attr = 8;
+pub const nl80211_band_attr___NL80211_BAND_ATTR_AFTER_LAST: nl80211_band_attr = 9;
+pub const nl80211_band_attr_NL80211_BAND_ATTR_MAX: nl80211_band_attr = 8;
+pub type nl80211_band_attr = u32;
+pub const nl80211_wmm_rule___NL80211_WMMR_INVALID: nl80211_wmm_rule = 0;
+pub const nl80211_wmm_rule_NL80211_WMMR_CW_MIN: nl80211_wmm_rule = 1;
+pub const nl80211_wmm_rule_NL80211_WMMR_CW_MAX: nl80211_wmm_rule = 2;
+pub const nl80211_wmm_rule_NL80211_WMMR_AIFSN: nl80211_wmm_rule = 3;
+pub const nl80211_wmm_rule_NL80211_WMMR_TXOP: nl80211_wmm_rule = 4;
+pub const nl80211_wmm_rule___NL80211_WMMR_LAST: nl80211_wmm_rule = 5;
+pub const nl80211_wmm_rule_NL80211_WMMR_MAX: nl80211_wmm_rule = 4;
+pub type nl80211_wmm_rule = u32;
+pub const nl80211_frequency_attr___NL80211_FREQUENCY_ATTR_INVALID: nl80211_frequency_attr = 0;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_FREQ: nl80211_frequency_attr = 1;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_DISABLED: nl80211_frequency_attr = 2;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_IR: nl80211_frequency_attr = 3;
+pub const nl80211_frequency_attr___NL80211_FREQUENCY_ATTR_NO_IBSS: nl80211_frequency_attr = 4;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_RADAR: nl80211_frequency_attr = 5;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_MAX_TX_POWER: nl80211_frequency_attr = 6;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_DFS_STATE: nl80211_frequency_attr = 7;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_DFS_TIME: nl80211_frequency_attr = 8;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_HT40_MINUS: nl80211_frequency_attr = 9;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_HT40_PLUS: nl80211_frequency_attr = 10;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_80MHZ: nl80211_frequency_attr = 11;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_160MHZ: nl80211_frequency_attr = 12;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_DFS_CAC_TIME: nl80211_frequency_attr = 13;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_INDOOR_ONLY: nl80211_frequency_attr = 14;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_IR_CONCURRENT: nl80211_frequency_attr = 15;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_20MHZ: nl80211_frequency_attr = 16;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_NO_10MHZ: nl80211_frequency_attr = 17;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_WMM: nl80211_frequency_attr = 18;
+pub const nl80211_frequency_attr___NL80211_FREQUENCY_ATTR_AFTER_LAST: nl80211_frequency_attr = 19;
+pub const nl80211_frequency_attr_NL80211_FREQUENCY_ATTR_MAX: nl80211_frequency_attr = 18;
+pub type nl80211_frequency_attr = u32;
+pub const nl80211_bitrate_attr___NL80211_BITRATE_ATTR_INVALID: nl80211_bitrate_attr = 0;
+pub const nl80211_bitrate_attr_NL80211_BITRATE_ATTR_RATE: nl80211_bitrate_attr = 1;
+pub const nl80211_bitrate_attr_NL80211_BITRATE_ATTR_2GHZ_SHORTPREAMBLE: nl80211_bitrate_attr = 2;
+pub const nl80211_bitrate_attr___NL80211_BITRATE_ATTR_AFTER_LAST: nl80211_bitrate_attr = 3;
+pub const nl80211_bitrate_attr_NL80211_BITRATE_ATTR_MAX: nl80211_bitrate_attr = 2;
+pub type nl80211_bitrate_attr = u32;
+pub const nl80211_reg_initiator_NL80211_REGDOM_SET_BY_CORE: nl80211_reg_initiator = 0;
+pub const nl80211_reg_initiator_NL80211_REGDOM_SET_BY_USER: nl80211_reg_initiator = 1;
+pub const nl80211_reg_initiator_NL80211_REGDOM_SET_BY_DRIVER: nl80211_reg_initiator = 2;
+pub const nl80211_reg_initiator_NL80211_REGDOM_SET_BY_COUNTRY_IE: nl80211_reg_initiator = 3;
+pub type nl80211_reg_initiator = u32;
+pub const nl80211_reg_type_NL80211_REGDOM_TYPE_COUNTRY: nl80211_reg_type = 0;
+pub const nl80211_reg_type_NL80211_REGDOM_TYPE_WORLD: nl80211_reg_type = 1;
+pub const nl80211_reg_type_NL80211_REGDOM_TYPE_CUSTOM_WORLD: nl80211_reg_type = 2;
+pub const nl80211_reg_type_NL80211_REGDOM_TYPE_INTERSECTION: nl80211_reg_type = 3;
+pub type nl80211_reg_type = u32;
+pub const nl80211_reg_rule_attr___NL80211_REG_RULE_ATTR_INVALID: nl80211_reg_rule_attr = 0;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_REG_RULE_FLAGS: nl80211_reg_rule_attr = 1;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_FREQ_RANGE_START: nl80211_reg_rule_attr = 2;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_FREQ_RANGE_END: nl80211_reg_rule_attr = 3;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_FREQ_RANGE_MAX_BW: nl80211_reg_rule_attr = 4;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_POWER_RULE_MAX_ANT_GAIN: nl80211_reg_rule_attr = 5;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_POWER_RULE_MAX_EIRP: nl80211_reg_rule_attr = 6;
+pub const nl80211_reg_rule_attr_NL80211_ATTR_DFS_CAC_TIME: nl80211_reg_rule_attr = 7;
+pub const nl80211_reg_rule_attr___NL80211_REG_RULE_ATTR_AFTER_LAST: nl80211_reg_rule_attr = 8;
+pub const nl80211_reg_rule_attr_NL80211_REG_RULE_ATTR_MAX: nl80211_reg_rule_attr = 7;
+pub type nl80211_reg_rule_attr = u32;
+pub const nl80211_sched_scan_match_attr___NL80211_SCHED_SCAN_MATCH_ATTR_INVALID:
+  nl80211_sched_scan_match_attr = 0;
+pub const nl80211_sched_scan_match_attr_NL80211_SCHED_SCAN_MATCH_ATTR_SSID:
+  nl80211_sched_scan_match_attr = 1;
+pub const nl80211_sched_scan_match_attr_NL80211_SCHED_SCAN_MATCH_ATTR_RSSI:
+  nl80211_sched_scan_match_attr = 2;
+pub const nl80211_sched_scan_match_attr_NL80211_SCHED_SCAN_MATCH_ATTR_RELATIVE_RSSI:
+  nl80211_sched_scan_match_attr = 3;
+pub const nl80211_sched_scan_match_attr_NL80211_SCHED_SCAN_MATCH_ATTR_RSSI_ADJUST:
+  nl80211_sched_scan_match_attr = 4;
+pub const nl80211_sched_scan_match_attr_NL80211_SCHED_SCAN_MATCH_ATTR_BSSID:
+  nl80211_sched_scan_match_attr = 5;
+pub const nl80211_sched_scan_match_attr___NL80211_SCHED_SCAN_MATCH_ATTR_AFTER_LAST:
+  nl80211_sched_scan_match_attr = 6;
+pub const nl80211_sched_scan_match_attr_NL80211_SCHED_SCAN_MATCH_ATTR_MAX:
+  nl80211_sched_scan_match_attr = 5;
+pub type nl80211_sched_scan_match_attr = u32;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_OFDM: nl80211_reg_rule_flags = 1;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_CCK: nl80211_reg_rule_flags = 2;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_INDOOR: nl80211_reg_rule_flags = 4;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_OUTDOOR: nl80211_reg_rule_flags = 8;
+pub const nl80211_reg_rule_flags_NL80211_RRF_DFS: nl80211_reg_rule_flags = 16;
+pub const nl80211_reg_rule_flags_NL80211_RRF_PTP_ONLY: nl80211_reg_rule_flags = 32;
+pub const nl80211_reg_rule_flags_NL80211_RRF_PTMP_ONLY: nl80211_reg_rule_flags = 64;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_IR: nl80211_reg_rule_flags = 128;
+pub const nl80211_reg_rule_flags___NL80211_RRF_NO_IBSS: nl80211_reg_rule_flags = 256;
+pub const nl80211_reg_rule_flags_NL80211_RRF_AUTO_BW: nl80211_reg_rule_flags = 2048;
+pub const nl80211_reg_rule_flags_NL80211_RRF_IR_CONCURRENT: nl80211_reg_rule_flags = 4096;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_HT40MINUS: nl80211_reg_rule_flags = 8192;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_HT40PLUS: nl80211_reg_rule_flags = 16384;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_80MHZ: nl80211_reg_rule_flags = 32768;
+pub const nl80211_reg_rule_flags_NL80211_RRF_NO_160MHZ: nl80211_reg_rule_flags = 65536;
+pub type nl80211_reg_rule_flags = u32;
+pub const nl80211_dfs_regions_NL80211_DFS_UNSET: nl80211_dfs_regions = 0;
+pub const nl80211_dfs_regions_NL80211_DFS_FCC: nl80211_dfs_regions = 1;
+pub const nl80211_dfs_regions_NL80211_DFS_ETSI: nl80211_dfs_regions = 2;
+pub const nl80211_dfs_regions_NL80211_DFS_JP: nl80211_dfs_regions = 3;
+pub type nl80211_dfs_regions = u32;
+pub const nl80211_user_reg_hint_type_NL80211_USER_REG_HINT_USER: nl80211_user_reg_hint_type = 0;
+pub const nl80211_user_reg_hint_type_NL80211_USER_REG_HINT_CELL_BASE: nl80211_user_reg_hint_type =
+  1;
+pub const nl80211_user_reg_hint_type_NL80211_USER_REG_HINT_INDOOR: nl80211_user_reg_hint_type = 2;
+pub type nl80211_user_reg_hint_type = u32;
+pub const nl80211_survey_info___NL80211_SURVEY_INFO_INVALID: nl80211_survey_info = 0;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_FREQUENCY: nl80211_survey_info = 1;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_NOISE: nl80211_survey_info = 2;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_IN_USE: nl80211_survey_info = 3;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_TIME: nl80211_survey_info = 4;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_TIME_BUSY: nl80211_survey_info = 5;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_TIME_EXT_BUSY: nl80211_survey_info = 6;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_TIME_RX: nl80211_survey_info = 7;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_TIME_TX: nl80211_survey_info = 8;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_TIME_SCAN: nl80211_survey_info = 9;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_PAD: nl80211_survey_info = 10;
+pub const nl80211_survey_info___NL80211_SURVEY_INFO_AFTER_LAST: nl80211_survey_info = 11;
+pub const nl80211_survey_info_NL80211_SURVEY_INFO_MAX: nl80211_survey_info = 10;
+pub type nl80211_survey_info = u32;
+pub const nl80211_mntr_flags___NL80211_MNTR_FLAG_INVALID: nl80211_mntr_flags = 0;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_FCSFAIL: nl80211_mntr_flags = 1;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_PLCPFAIL: nl80211_mntr_flags = 2;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_CONTROL: nl80211_mntr_flags = 3;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_OTHER_BSS: nl80211_mntr_flags = 4;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_COOK_FRAMES: nl80211_mntr_flags = 5;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_ACTIVE: nl80211_mntr_flags = 6;
+pub const nl80211_mntr_flags___NL80211_MNTR_FLAG_AFTER_LAST: nl80211_mntr_flags = 7;
+pub const nl80211_mntr_flags_NL80211_MNTR_FLAG_MAX: nl80211_mntr_flags = 6;
+pub type nl80211_mntr_flags = u32;
+pub const nl80211_mesh_power_mode_NL80211_MESH_POWER_UNKNOWN: nl80211_mesh_power_mode = 0;
+pub const nl80211_mesh_power_mode_NL80211_MESH_POWER_ACTIVE: nl80211_mesh_power_mode = 1;
+pub const nl80211_mesh_power_mode_NL80211_MESH_POWER_LIGHT_SLEEP: nl80211_mesh_power_mode = 2;
+pub const nl80211_mesh_power_mode_NL80211_MESH_POWER_DEEP_SLEEP: nl80211_mesh_power_mode = 3;
+pub const nl80211_mesh_power_mode___NL80211_MESH_POWER_AFTER_LAST: nl80211_mesh_power_mode = 4;
+pub const nl80211_mesh_power_mode_NL80211_MESH_POWER_MAX: nl80211_mesh_power_mode = 3;
+pub type nl80211_mesh_power_mode = u32;
+pub const nl80211_meshconf_params___NL80211_MESHCONF_INVALID: nl80211_meshconf_params = 0;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_RETRY_TIMEOUT: nl80211_meshconf_params = 1;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_CONFIRM_TIMEOUT: nl80211_meshconf_params = 2;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HOLDING_TIMEOUT: nl80211_meshconf_params = 3;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_MAX_PEER_LINKS: nl80211_meshconf_params = 4;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_MAX_RETRIES: nl80211_meshconf_params = 5;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_TTL: nl80211_meshconf_params = 6;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_AUTO_OPEN_PLINKS: nl80211_meshconf_params = 7;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_MAX_PREQ_RETRIES: nl80211_meshconf_params =
+  8;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_PATH_REFRESH_TIME: nl80211_meshconf_params = 9;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_MIN_DISCOVERY_TIMEOUT: nl80211_meshconf_params =
+  10;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_ACTIVE_PATH_TIMEOUT:
+  nl80211_meshconf_params = 11;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_PREQ_MIN_INTERVAL: nl80211_meshconf_params =
+  12;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_NET_DIAM_TRVS_TIME:
+  nl80211_meshconf_params = 13;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_ROOTMODE: nl80211_meshconf_params = 14;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_ELEMENT_TTL: nl80211_meshconf_params = 15;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_RANN_INTERVAL: nl80211_meshconf_params = 16;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_GATE_ANNOUNCEMENTS: nl80211_meshconf_params = 17;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_PERR_MIN_INTERVAL: nl80211_meshconf_params =
+  18;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_FORWARDING: nl80211_meshconf_params = 19;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_RSSI_THRESHOLD: nl80211_meshconf_params = 20;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_SYNC_OFFSET_MAX_NEIGHBOR:
+  nl80211_meshconf_params = 21;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HT_OPMODE: nl80211_meshconf_params = 22;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_PATH_TO_ROOT_TIMEOUT:
+  nl80211_meshconf_params = 23;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_ROOT_INTERVAL: nl80211_meshconf_params = 24;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_HWMP_CONFIRMATION_INTERVAL:
+  nl80211_meshconf_params = 25;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_POWER_MODE: nl80211_meshconf_params = 26;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_AWAKE_WINDOW: nl80211_meshconf_params = 27;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_PLINK_TIMEOUT: nl80211_meshconf_params = 28;
+pub const nl80211_meshconf_params___NL80211_MESHCONF_ATTR_AFTER_LAST: nl80211_meshconf_params = 29;
+pub const nl80211_meshconf_params_NL80211_MESHCONF_ATTR_MAX: nl80211_meshconf_params = 28;
+pub type nl80211_meshconf_params = u32;
+pub const nl80211_mesh_setup_params___NL80211_MESH_SETUP_INVALID: nl80211_mesh_setup_params = 0;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_ENABLE_VENDOR_PATH_SEL:
+  nl80211_mesh_setup_params = 1;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_ENABLE_VENDOR_METRIC:
+  nl80211_mesh_setup_params = 2;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_IE: nl80211_mesh_setup_params = 3;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_USERSPACE_AUTH: nl80211_mesh_setup_params =
+  4;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_USERSPACE_AMPE: nl80211_mesh_setup_params =
+  5;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_ENABLE_VENDOR_SYNC:
+  nl80211_mesh_setup_params = 6;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_USERSPACE_MPM: nl80211_mesh_setup_params = 7;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_AUTH_PROTOCOL: nl80211_mesh_setup_params = 8;
+pub const nl80211_mesh_setup_params___NL80211_MESH_SETUP_ATTR_AFTER_LAST:
+  nl80211_mesh_setup_params = 9;
+pub const nl80211_mesh_setup_params_NL80211_MESH_SETUP_ATTR_MAX: nl80211_mesh_setup_params = 8;
+pub type nl80211_mesh_setup_params = u32;
+pub const nl80211_txq_attr___NL80211_TXQ_ATTR_INVALID: nl80211_txq_attr = 0;
+pub const nl80211_txq_attr_NL80211_TXQ_ATTR_AC: nl80211_txq_attr = 1;
+pub const nl80211_txq_attr_NL80211_TXQ_ATTR_TXOP: nl80211_txq_attr = 2;
+pub const nl80211_txq_attr_NL80211_TXQ_ATTR_CWMIN: nl80211_txq_attr = 3;
+pub const nl80211_txq_attr_NL80211_TXQ_ATTR_CWMAX: nl80211_txq_attr = 4;
+pub const nl80211_txq_attr_NL80211_TXQ_ATTR_AIFS: nl80211_txq_attr = 5;
+pub const nl80211_txq_attr___NL80211_TXQ_ATTR_AFTER_LAST: nl80211_txq_attr = 6;
+pub const nl80211_txq_attr_NL80211_TXQ_ATTR_MAX: nl80211_txq_attr = 5;
+pub type nl80211_txq_attr = u32;
+pub const nl80211_ac_NL80211_AC_VO: nl80211_ac = 0;
+pub const nl80211_ac_NL80211_AC_VI: nl80211_ac = 1;
+pub const nl80211_ac_NL80211_AC_BE: nl80211_ac = 2;
+pub const nl80211_ac_NL80211_AC_BK: nl80211_ac = 3;
+pub const nl80211_ac_NL80211_NUM_ACS: nl80211_ac = 4;
+pub type nl80211_ac = u32;
+pub const nl80211_channel_type_NL80211_CHAN_NO_HT: nl80211_channel_type = 0;
+pub const nl80211_channel_type_NL80211_CHAN_HT20: nl80211_channel_type = 1;
+pub const nl80211_channel_type_NL80211_CHAN_HT40MINUS: nl80211_channel_type = 2;
+pub const nl80211_channel_type_NL80211_CHAN_HT40PLUS: nl80211_channel_type = 3;
+pub type nl80211_channel_type = u32;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_20_NOHT: nl80211_chan_width = 0;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_20: nl80211_chan_width = 1;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_40: nl80211_chan_width = 2;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_80: nl80211_chan_width = 3;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_80P80: nl80211_chan_width = 4;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_160: nl80211_chan_width = 5;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_5: nl80211_chan_width = 6;
+pub const nl80211_chan_width_NL80211_CHAN_WIDTH_10: nl80211_chan_width = 7;
+pub type nl80211_chan_width = u32;
+pub const nl80211_bss_scan_width_NL80211_BSS_CHAN_WIDTH_20: nl80211_bss_scan_width = 0;
+pub const nl80211_bss_scan_width_NL80211_BSS_CHAN_WIDTH_10: nl80211_bss_scan_width = 1;
+pub const nl80211_bss_scan_width_NL80211_BSS_CHAN_WIDTH_5: nl80211_bss_scan_width = 2;
+pub type nl80211_bss_scan_width = u32;
+pub const nl80211_bss___NL80211_BSS_INVALID: nl80211_bss = 0;
+pub const nl80211_bss_NL80211_BSS_BSSID: nl80211_bss = 1;
+pub const nl80211_bss_NL80211_BSS_FREQUENCY: nl80211_bss = 2;
+pub const nl80211_bss_NL80211_BSS_TSF: nl80211_bss = 3;
+pub const nl80211_bss_NL80211_BSS_BEACON_INTERVAL: nl80211_bss = 4;
+pub const nl80211_bss_NL80211_BSS_CAPABILITY: nl80211_bss = 5;
+pub const nl80211_bss_NL80211_BSS_INFORMATION_ELEMENTS: nl80211_bss = 6;
+pub const nl80211_bss_NL80211_BSS_SIGNAL_MBM: nl80211_bss = 7;
+pub const nl80211_bss_NL80211_BSS_SIGNAL_UNSPEC: nl80211_bss = 8;
+pub const nl80211_bss_NL80211_BSS_STATUS: nl80211_bss = 9;
+pub const nl80211_bss_NL80211_BSS_SEEN_MS_AGO: nl80211_bss = 10;
+pub const nl80211_bss_NL80211_BSS_BEACON_IES: nl80211_bss = 11;
+pub const nl80211_bss_NL80211_BSS_CHAN_WIDTH: nl80211_bss = 12;
+pub const nl80211_bss_NL80211_BSS_BEACON_TSF: nl80211_bss = 13;
+pub const nl80211_bss_NL80211_BSS_PRESP_DATA: nl80211_bss = 14;
+pub const nl80211_bss_NL80211_BSS_LAST_SEEN_BOOTTIME: nl80211_bss = 15;
+pub const nl80211_bss_NL80211_BSS_PAD: nl80211_bss = 16;
+pub const nl80211_bss_NL80211_BSS_PARENT_TSF: nl80211_bss = 17;
+pub const nl80211_bss_NL80211_BSS_PARENT_BSSID: nl80211_bss = 18;
+pub const nl80211_bss_NL80211_BSS_CHAIN_SIGNAL: nl80211_bss = 19;
+pub const nl80211_bss___NL80211_BSS_AFTER_LAST: nl80211_bss = 20;
+pub const nl80211_bss_NL80211_BSS_MAX: nl80211_bss = 19;
+pub type nl80211_bss = u32;
+pub const nl80211_bss_status_NL80211_BSS_STATUS_AUTHENTICATED: nl80211_bss_status = 0;
+pub const nl80211_bss_status_NL80211_BSS_STATUS_ASSOCIATED: nl80211_bss_status = 1;
+pub const nl80211_bss_status_NL80211_BSS_STATUS_IBSS_JOINED: nl80211_bss_status = 2;
+pub type nl80211_bss_status = u32;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_OPEN_SYSTEM: nl80211_auth_type = 0;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_SHARED_KEY: nl80211_auth_type = 1;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_FT: nl80211_auth_type = 2;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_NETWORK_EAP: nl80211_auth_type = 3;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_SAE: nl80211_auth_type = 4;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_FILS_SK: nl80211_auth_type = 5;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_FILS_SK_PFS: nl80211_auth_type = 6;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_FILS_PK: nl80211_auth_type = 7;
+pub const nl80211_auth_type___NL80211_AUTHTYPE_NUM: nl80211_auth_type = 8;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_MAX: nl80211_auth_type = 7;
+pub const nl80211_auth_type_NL80211_AUTHTYPE_AUTOMATIC: nl80211_auth_type = 8;
+pub type nl80211_auth_type = u32;
+pub const nl80211_key_type_NL80211_KEYTYPE_GROUP: nl80211_key_type = 0;
+pub const nl80211_key_type_NL80211_KEYTYPE_PAIRWISE: nl80211_key_type = 1;
+pub const nl80211_key_type_NL80211_KEYTYPE_PEERKEY: nl80211_key_type = 2;
+pub const nl80211_key_type_NUM_NL80211_KEYTYPES: nl80211_key_type = 3;
+pub type nl80211_key_type = u32;
+pub const nl80211_mfp_NL80211_MFP_NO: nl80211_mfp = 0;
+pub const nl80211_mfp_NL80211_MFP_REQUIRED: nl80211_mfp = 1;
+pub const nl80211_mfp_NL80211_MFP_OPTIONAL: nl80211_mfp = 2;
+pub type nl80211_mfp = u32;
+pub const nl80211_wpa_versions_NL80211_WPA_VERSION_1: nl80211_wpa_versions = 1;
+pub const nl80211_wpa_versions_NL80211_WPA_VERSION_2: nl80211_wpa_versions = 2;
+pub type nl80211_wpa_versions = u32;
+pub const nl80211_key_default_types___NL80211_KEY_DEFAULT_TYPE_INVALID: nl80211_key_default_types =
+  0;
+pub const nl80211_key_default_types_NL80211_KEY_DEFAULT_TYPE_UNICAST: nl80211_key_default_types = 1;
+pub const nl80211_key_default_types_NL80211_KEY_DEFAULT_TYPE_MULTICAST: nl80211_key_default_types =
+  2;
+pub const nl80211_key_default_types_NUM_NL80211_KEY_DEFAULT_TYPES: nl80211_key_default_types = 3;
+pub type nl80211_key_default_types = u32;
+pub const nl80211_key_attributes___NL80211_KEY_INVALID: nl80211_key_attributes = 0;
+pub const nl80211_key_attributes_NL80211_KEY_DATA: nl80211_key_attributes = 1;
+pub const nl80211_key_attributes_NL80211_KEY_IDX: nl80211_key_attributes = 2;
+pub const nl80211_key_attributes_NL80211_KEY_CIPHER: nl80211_key_attributes = 3;
+pub const nl80211_key_attributes_NL80211_KEY_SEQ: nl80211_key_attributes = 4;
+pub const nl80211_key_attributes_NL80211_KEY_DEFAULT: nl80211_key_attributes = 5;
+pub const nl80211_key_attributes_NL80211_KEY_DEFAULT_MGMT: nl80211_key_attributes = 6;
+pub const nl80211_key_attributes_NL80211_KEY_TYPE: nl80211_key_attributes = 7;
+pub const nl80211_key_attributes_NL80211_KEY_DEFAULT_TYPES: nl80211_key_attributes = 8;
+pub const nl80211_key_attributes___NL80211_KEY_AFTER_LAST: nl80211_key_attributes = 9;
+pub const nl80211_key_attributes_NL80211_KEY_MAX: nl80211_key_attributes = 8;
+pub type nl80211_key_attributes = u32;
+pub const nl80211_tx_rate_attributes___NL80211_TXRATE_INVALID: nl80211_tx_rate_attributes = 0;
+pub const nl80211_tx_rate_attributes_NL80211_TXRATE_LEGACY: nl80211_tx_rate_attributes = 1;
+pub const nl80211_tx_rate_attributes_NL80211_TXRATE_HT: nl80211_tx_rate_attributes = 2;
+pub const nl80211_tx_rate_attributes_NL80211_TXRATE_VHT: nl80211_tx_rate_attributes = 3;
+pub const nl80211_tx_rate_attributes_NL80211_TXRATE_GI: nl80211_tx_rate_attributes = 4;
+pub const nl80211_tx_rate_attributes___NL80211_TXRATE_AFTER_LAST: nl80211_tx_rate_attributes = 5;
+pub const nl80211_tx_rate_attributes_NL80211_TXRATE_MAX: nl80211_tx_rate_attributes = 4;
+pub type nl80211_tx_rate_attributes = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_txrate_vht {
+  pub mcs: [__u16; 8usize],
+}
+#[test]
+fn bindgen_test_layout_nl80211_txrate_vht() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_txrate_vht>(),
+    16usize,
+    concat!("Size of: ", stringify!(nl80211_txrate_vht))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_txrate_vht>(),
+    2usize,
+    concat!("Alignment of ", stringify!(nl80211_txrate_vht))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_txrate_vht>())).mcs as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_txrate_vht),
+      "::",
+      stringify!(mcs)
+    )
+  );
+}
+pub const nl80211_txrate_gi_NL80211_TXRATE_DEFAULT_GI: nl80211_txrate_gi = 0;
+pub const nl80211_txrate_gi_NL80211_TXRATE_FORCE_SGI: nl80211_txrate_gi = 1;
+pub const nl80211_txrate_gi_NL80211_TXRATE_FORCE_LGI: nl80211_txrate_gi = 2;
+pub type nl80211_txrate_gi = u32;
+pub const nl80211_band_NL80211_BAND_2GHZ: nl80211_band = 0;
+pub const nl80211_band_NL80211_BAND_5GHZ: nl80211_band = 1;
+pub const nl80211_band_NL80211_BAND_60GHZ: nl80211_band = 2;
+pub const nl80211_band_NUM_NL80211_BANDS: nl80211_band = 3;
+pub type nl80211_band = u32;
+pub const nl80211_ps_state_NL80211_PS_DISABLED: nl80211_ps_state = 0;
+pub const nl80211_ps_state_NL80211_PS_ENABLED: nl80211_ps_state = 1;
+pub type nl80211_ps_state = u32;
+pub const nl80211_attr_cqm___NL80211_ATTR_CQM_INVALID: nl80211_attr_cqm = 0;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_RSSI_THOLD: nl80211_attr_cqm = 1;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_RSSI_HYST: nl80211_attr_cqm = 2;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_RSSI_THRESHOLD_EVENT: nl80211_attr_cqm = 3;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_PKT_LOSS_EVENT: nl80211_attr_cqm = 4;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_TXE_RATE: nl80211_attr_cqm = 5;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_TXE_PKTS: nl80211_attr_cqm = 6;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_TXE_INTVL: nl80211_attr_cqm = 7;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_BEACON_LOSS_EVENT: nl80211_attr_cqm = 8;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_RSSI_LEVEL: nl80211_attr_cqm = 9;
+pub const nl80211_attr_cqm___NL80211_ATTR_CQM_AFTER_LAST: nl80211_attr_cqm = 10;
+pub const nl80211_attr_cqm_NL80211_ATTR_CQM_MAX: nl80211_attr_cqm = 9;
+pub type nl80211_attr_cqm = u32;
+pub const nl80211_cqm_rssi_threshold_event_NL80211_CQM_RSSI_THRESHOLD_EVENT_LOW:
+  nl80211_cqm_rssi_threshold_event = 0;
+pub const nl80211_cqm_rssi_threshold_event_NL80211_CQM_RSSI_THRESHOLD_EVENT_HIGH:
+  nl80211_cqm_rssi_threshold_event = 1;
+pub const nl80211_cqm_rssi_threshold_event_NL80211_CQM_RSSI_BEACON_LOSS_EVENT:
+  nl80211_cqm_rssi_threshold_event = 2;
+pub type nl80211_cqm_rssi_threshold_event = u32;
+pub const nl80211_tx_power_setting_NL80211_TX_POWER_AUTOMATIC: nl80211_tx_power_setting = 0;
+pub const nl80211_tx_power_setting_NL80211_TX_POWER_LIMITED: nl80211_tx_power_setting = 1;
+pub const nl80211_tx_power_setting_NL80211_TX_POWER_FIXED: nl80211_tx_power_setting = 2;
+pub type nl80211_tx_power_setting = u32;
+pub const nl80211_packet_pattern_attr___NL80211_PKTPAT_INVALID: nl80211_packet_pattern_attr = 0;
+pub const nl80211_packet_pattern_attr_NL80211_PKTPAT_MASK: nl80211_packet_pattern_attr = 1;
+pub const nl80211_packet_pattern_attr_NL80211_PKTPAT_PATTERN: nl80211_packet_pattern_attr = 2;
+pub const nl80211_packet_pattern_attr_NL80211_PKTPAT_OFFSET: nl80211_packet_pattern_attr = 3;
+pub const nl80211_packet_pattern_attr_NUM_NL80211_PKTPAT: nl80211_packet_pattern_attr = 4;
+pub const nl80211_packet_pattern_attr_MAX_NL80211_PKTPAT: nl80211_packet_pattern_attr = 3;
+pub type nl80211_packet_pattern_attr = u32;
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_pattern_support {
+  pub max_patterns: __u32,
+  pub min_pattern_len: __u32,
+  pub max_pattern_len: __u32,
+  pub max_pkt_offset: __u32,
+}
+#[test]
+fn bindgen_test_layout_nl80211_pattern_support() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_pattern_support>(),
+    16usize,
+    concat!("Size of: ", stringify!(nl80211_pattern_support))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_pattern_support>(),
+    1usize,
+    concat!("Alignment of ", stringify!(nl80211_pattern_support))
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_pattern_support>())).max_patterns as *const _ as usize
+    },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_pattern_support),
+      "::",
+      stringify!(max_patterns)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_pattern_support>())).min_pattern_len as *const _ as usize
+    },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_pattern_support),
+      "::",
+      stringify!(min_pattern_len)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_pattern_support>())).max_pattern_len as *const _ as usize
+    },
+    8usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_pattern_support),
+      "::",
+      stringify!(max_pattern_len)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_pattern_support>())).max_pkt_offset as *const _ as usize
+    },
+    12usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_pattern_support),
+      "::",
+      stringify!(max_pkt_offset)
+    )
+  );
+}
+pub const nl80211_wowlan_triggers___NL80211_WOWLAN_TRIG_INVALID: nl80211_wowlan_triggers = 0;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_ANY: nl80211_wowlan_triggers = 1;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_DISCONNECT: nl80211_wowlan_triggers = 2;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_MAGIC_PKT: nl80211_wowlan_triggers = 3;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_PKT_PATTERN: nl80211_wowlan_triggers = 4;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_GTK_REKEY_SUPPORTED: nl80211_wowlan_triggers =
+  5;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_GTK_REKEY_FAILURE: nl80211_wowlan_triggers =
+  6;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_EAP_IDENT_REQUEST: nl80211_wowlan_triggers =
+  7;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_4WAY_HANDSHAKE: nl80211_wowlan_triggers = 8;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_RFKILL_RELEASE: nl80211_wowlan_triggers = 9;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_PKT_80211: nl80211_wowlan_triggers =
+  10;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_PKT_80211_LEN:
+  nl80211_wowlan_triggers = 11;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_PKT_8023: nl80211_wowlan_triggers = 12;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_PKT_8023_LEN: nl80211_wowlan_triggers =
+  13;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_TCP_CONNECTION: nl80211_wowlan_triggers = 14;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_TCP_MATCH: nl80211_wowlan_triggers =
+  15;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_TCP_CONNLOST: nl80211_wowlan_triggers =
+  16;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_WAKEUP_TCP_NOMORETOKENS:
+  nl80211_wowlan_triggers = 17;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_NET_DETECT: nl80211_wowlan_triggers = 18;
+pub const nl80211_wowlan_triggers_NL80211_WOWLAN_TRIG_NET_DETECT_RESULTS: nl80211_wowlan_triggers =
+  19;
+pub const nl80211_wowlan_triggers_NUM_NL80211_WOWLAN_TRIG: nl80211_wowlan_triggers = 20;
+pub const nl80211_wowlan_triggers_MAX_NL80211_WOWLAN_TRIG: nl80211_wowlan_triggers = 19;
+pub type nl80211_wowlan_triggers = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_wowlan_tcp_data_seq {
+  pub start: __u32,
+  pub offset: __u32,
+  pub len: __u32,
+}
+#[test]
+fn bindgen_test_layout_nl80211_wowlan_tcp_data_seq() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_wowlan_tcp_data_seq>(),
+    12usize,
+    concat!("Size of: ", stringify!(nl80211_wowlan_tcp_data_seq))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_wowlan_tcp_data_seq>(),
+    4usize,
+    concat!("Alignment of ", stringify!(nl80211_wowlan_tcp_data_seq))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_wowlan_tcp_data_seq>())).start as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_wowlan_tcp_data_seq),
+      "::",
+      stringify!(start)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_wowlan_tcp_data_seq>())).offset as *const _ as usize },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_wowlan_tcp_data_seq),
+      "::",
+      stringify!(offset)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_wowlan_tcp_data_seq>())).len as *const _ as usize },
+    8usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_wowlan_tcp_data_seq),
+      "::",
+      stringify!(len)
+    )
+  );
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct nl80211_wowlan_tcp_data_token {
+  pub offset: __u32,
+  pub len: __u32,
+  pub token_stream: __IncompleteArrayField<__u8>,
+}
+#[test]
+fn bindgen_test_layout_nl80211_wowlan_tcp_data_token() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_wowlan_tcp_data_token>(),
+    8usize,
+    concat!("Size of: ", stringify!(nl80211_wowlan_tcp_data_token))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_wowlan_tcp_data_token>(),
+    4usize,
+    concat!("Alignment of ", stringify!(nl80211_wowlan_tcp_data_token))
+  );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_wowlan_tcp_data_token_feature {
+  pub min_len: __u32,
+  pub max_len: __u32,
+  pub bufsize: __u32,
+}
+#[test]
+fn bindgen_test_layout_nl80211_wowlan_tcp_data_token_feature() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_wowlan_tcp_data_token_feature>(),
+    12usize,
+    concat!(
+      "Size of: ",
+      stringify!(nl80211_wowlan_tcp_data_token_feature)
+    )
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_wowlan_tcp_data_token_feature>(),
+    4usize,
+    concat!(
+      "Alignment of ",
+      stringify!(nl80211_wowlan_tcp_data_token_feature)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_wowlan_tcp_data_token_feature>())).min_len as *const _ as usize
+    },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_wowlan_tcp_data_token_feature),
+      "::",
+      stringify!(min_len)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_wowlan_tcp_data_token_feature>())).max_len as *const _ as usize
+    },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_wowlan_tcp_data_token_feature),
+      "::",
+      stringify!(max_len)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_wowlan_tcp_data_token_feature>())).bufsize as *const _ as usize
+    },
+    8usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_wowlan_tcp_data_token_feature),
+      "::",
+      stringify!(bufsize)
+    )
+  );
+}
+pub const nl80211_wowlan_tcp_attrs___NL80211_WOWLAN_TCP_INVALID: nl80211_wowlan_tcp_attrs = 0;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_SRC_IPV4: nl80211_wowlan_tcp_attrs = 1;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DST_IPV4: nl80211_wowlan_tcp_attrs = 2;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DST_MAC: nl80211_wowlan_tcp_attrs = 3;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_SRC_PORT: nl80211_wowlan_tcp_attrs = 4;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DST_PORT: nl80211_wowlan_tcp_attrs = 5;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DATA_PAYLOAD: nl80211_wowlan_tcp_attrs = 6;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DATA_PAYLOAD_SEQ: nl80211_wowlan_tcp_attrs =
+  7;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DATA_PAYLOAD_TOKEN: nl80211_wowlan_tcp_attrs =
+  8;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_DATA_INTERVAL: nl80211_wowlan_tcp_attrs = 9;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_WAKE_PAYLOAD: nl80211_wowlan_tcp_attrs = 10;
+pub const nl80211_wowlan_tcp_attrs_NL80211_WOWLAN_TCP_WAKE_MASK: nl80211_wowlan_tcp_attrs = 11;
+pub const nl80211_wowlan_tcp_attrs_NUM_NL80211_WOWLAN_TCP: nl80211_wowlan_tcp_attrs = 12;
+pub const nl80211_wowlan_tcp_attrs_MAX_NL80211_WOWLAN_TCP: nl80211_wowlan_tcp_attrs = 11;
+pub type nl80211_wowlan_tcp_attrs = u32;
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_coalesce_rule_support {
+  pub max_rules: __u32,
+  pub pat: nl80211_pattern_support,
+  pub max_delay: __u32,
+}
+#[test]
+fn bindgen_test_layout_nl80211_coalesce_rule_support() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_coalesce_rule_support>(),
+    24usize,
+    concat!("Size of: ", stringify!(nl80211_coalesce_rule_support))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_coalesce_rule_support>(),
+    1usize,
+    concat!("Alignment of ", stringify!(nl80211_coalesce_rule_support))
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_coalesce_rule_support>())).max_rules as *const _ as usize
+    },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_coalesce_rule_support),
+      "::",
+      stringify!(max_rules)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_coalesce_rule_support>())).pat as *const _ as usize },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_coalesce_rule_support),
+      "::",
+      stringify!(pat)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_coalesce_rule_support>())).max_delay as *const _ as usize
+    },
+    20usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_coalesce_rule_support),
+      "::",
+      stringify!(max_delay)
+    )
+  );
+}
+pub const nl80211_attr_coalesce_rule___NL80211_COALESCE_RULE_INVALID: nl80211_attr_coalesce_rule =
+  0;
+pub const nl80211_attr_coalesce_rule_NL80211_ATTR_COALESCE_RULE_DELAY: nl80211_attr_coalesce_rule =
+  1;
+pub const nl80211_attr_coalesce_rule_NL80211_ATTR_COALESCE_RULE_CONDITION:
+  nl80211_attr_coalesce_rule = 2;
+pub const nl80211_attr_coalesce_rule_NL80211_ATTR_COALESCE_RULE_PKT_PATTERN:
+  nl80211_attr_coalesce_rule = 3;
+pub const nl80211_attr_coalesce_rule_NUM_NL80211_ATTR_COALESCE_RULE: nl80211_attr_coalesce_rule = 4;
+pub const nl80211_attr_coalesce_rule_NL80211_ATTR_COALESCE_RULE_MAX: nl80211_attr_coalesce_rule = 3;
+pub type nl80211_attr_coalesce_rule = u32;
+pub const nl80211_coalesce_condition_NL80211_COALESCE_CONDITION_MATCH: nl80211_coalesce_condition =
+  0;
+pub const nl80211_coalesce_condition_NL80211_COALESCE_CONDITION_NO_MATCH:
+  nl80211_coalesce_condition = 1;
+pub type nl80211_coalesce_condition = u32;
+pub const nl80211_iface_limit_attrs_NL80211_IFACE_LIMIT_UNSPEC: nl80211_iface_limit_attrs = 0;
+pub const nl80211_iface_limit_attrs_NL80211_IFACE_LIMIT_MAX: nl80211_iface_limit_attrs = 1;
+pub const nl80211_iface_limit_attrs_NL80211_IFACE_LIMIT_TYPES: nl80211_iface_limit_attrs = 2;
+pub const nl80211_iface_limit_attrs_NUM_NL80211_IFACE_LIMIT: nl80211_iface_limit_attrs = 3;
+pub const nl80211_iface_limit_attrs_MAX_NL80211_IFACE_LIMIT: nl80211_iface_limit_attrs = 2;
+pub type nl80211_iface_limit_attrs = u32;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_UNSPEC: nl80211_if_combination_attrs = 0;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_LIMITS: nl80211_if_combination_attrs = 1;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_MAXNUM: nl80211_if_combination_attrs = 2;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_STA_AP_BI_MATCH:
+  nl80211_if_combination_attrs = 3;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_NUM_CHANNELS:
+  nl80211_if_combination_attrs = 4;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_RADAR_DETECT_WIDTHS:
+  nl80211_if_combination_attrs = 5;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_RADAR_DETECT_REGIONS:
+  nl80211_if_combination_attrs = 6;
+pub const nl80211_if_combination_attrs_NL80211_IFACE_COMB_BI_MIN_GCD: nl80211_if_combination_attrs =
+  7;
+pub const nl80211_if_combination_attrs_NUM_NL80211_IFACE_COMB: nl80211_if_combination_attrs = 8;
+pub const nl80211_if_combination_attrs_MAX_NL80211_IFACE_COMB: nl80211_if_combination_attrs = 7;
+pub type nl80211_if_combination_attrs = u32;
+pub const nl80211_plink_state_NL80211_PLINK_LISTEN: nl80211_plink_state = 0;
+pub const nl80211_plink_state_NL80211_PLINK_OPN_SNT: nl80211_plink_state = 1;
+pub const nl80211_plink_state_NL80211_PLINK_OPN_RCVD: nl80211_plink_state = 2;
+pub const nl80211_plink_state_NL80211_PLINK_CNF_RCVD: nl80211_plink_state = 3;
+pub const nl80211_plink_state_NL80211_PLINK_ESTAB: nl80211_plink_state = 4;
+pub const nl80211_plink_state_NL80211_PLINK_HOLDING: nl80211_plink_state = 5;
+pub const nl80211_plink_state_NL80211_PLINK_BLOCKED: nl80211_plink_state = 6;
+pub const nl80211_plink_state_NUM_NL80211_PLINK_STATES: nl80211_plink_state = 7;
+pub const nl80211_plink_state_MAX_NL80211_PLINK_STATES: nl80211_plink_state = 6;
+pub type nl80211_plink_state = u32;
+pub const nl80211_rekey_data___NL80211_REKEY_DATA_INVALID: nl80211_rekey_data = 0;
+pub const nl80211_rekey_data_NL80211_REKEY_DATA_KEK: nl80211_rekey_data = 1;
+pub const nl80211_rekey_data_NL80211_REKEY_DATA_KCK: nl80211_rekey_data = 2;
+pub const nl80211_rekey_data_NL80211_REKEY_DATA_REPLAY_CTR: nl80211_rekey_data = 3;
+pub const nl80211_rekey_data_NUM_NL80211_REKEY_DATA: nl80211_rekey_data = 4;
+pub const nl80211_rekey_data_MAX_NL80211_REKEY_DATA: nl80211_rekey_data = 3;
+pub type nl80211_rekey_data = u32;
+pub const nl80211_hidden_ssid_NL80211_HIDDEN_SSID_NOT_IN_USE: nl80211_hidden_ssid = 0;
+pub const nl80211_hidden_ssid_NL80211_HIDDEN_SSID_ZERO_LEN: nl80211_hidden_ssid = 1;
+pub const nl80211_hidden_ssid_NL80211_HIDDEN_SSID_ZERO_CONTENTS: nl80211_hidden_ssid = 2;
+pub type nl80211_hidden_ssid = u32;
+pub const nl80211_sta_wme_attr___NL80211_STA_WME_INVALID: nl80211_sta_wme_attr = 0;
+pub const nl80211_sta_wme_attr_NL80211_STA_WME_UAPSD_QUEUES: nl80211_sta_wme_attr = 1;
+pub const nl80211_sta_wme_attr_NL80211_STA_WME_MAX_SP: nl80211_sta_wme_attr = 2;
+pub const nl80211_sta_wme_attr___NL80211_STA_WME_AFTER_LAST: nl80211_sta_wme_attr = 3;
+pub const nl80211_sta_wme_attr_NL80211_STA_WME_MAX: nl80211_sta_wme_attr = 2;
+pub type nl80211_sta_wme_attr = u32;
+pub const nl80211_pmksa_candidate_attr___NL80211_PMKSA_CANDIDATE_INVALID:
+  nl80211_pmksa_candidate_attr = 0;
+pub const nl80211_pmksa_candidate_attr_NL80211_PMKSA_CANDIDATE_INDEX: nl80211_pmksa_candidate_attr =
+  1;
+pub const nl80211_pmksa_candidate_attr_NL80211_PMKSA_CANDIDATE_BSSID: nl80211_pmksa_candidate_attr =
+  2;
+pub const nl80211_pmksa_candidate_attr_NL80211_PMKSA_CANDIDATE_PREAUTH:
+  nl80211_pmksa_candidate_attr = 3;
+pub const nl80211_pmksa_candidate_attr_NUM_NL80211_PMKSA_CANDIDATE: nl80211_pmksa_candidate_attr =
+  4;
+pub const nl80211_pmksa_candidate_attr_MAX_NL80211_PMKSA_CANDIDATE: nl80211_pmksa_candidate_attr =
+  3;
+pub type nl80211_pmksa_candidate_attr = u32;
+pub const nl80211_tdls_operation_NL80211_TDLS_DISCOVERY_REQ: nl80211_tdls_operation = 0;
+pub const nl80211_tdls_operation_NL80211_TDLS_SETUP: nl80211_tdls_operation = 1;
+pub const nl80211_tdls_operation_NL80211_TDLS_TEARDOWN: nl80211_tdls_operation = 2;
+pub const nl80211_tdls_operation_NL80211_TDLS_ENABLE_LINK: nl80211_tdls_operation = 3;
+pub const nl80211_tdls_operation_NL80211_TDLS_DISABLE_LINK: nl80211_tdls_operation = 4;
+pub type nl80211_tdls_operation = u32;
+pub const nl80211_feature_flags_NL80211_FEATURE_SK_TX_STATUS: nl80211_feature_flags = 1;
+pub const nl80211_feature_flags_NL80211_FEATURE_HT_IBSS: nl80211_feature_flags = 2;
+pub const nl80211_feature_flags_NL80211_FEATURE_INACTIVITY_TIMER: nl80211_feature_flags = 4;
+pub const nl80211_feature_flags_NL80211_FEATURE_CELL_BASE_REG_HINTS: nl80211_feature_flags = 8;
+pub const nl80211_feature_flags_NL80211_FEATURE_P2P_DEVICE_NEEDS_CHANNEL: nl80211_feature_flags =
+  16;
+pub const nl80211_feature_flags_NL80211_FEATURE_SAE: nl80211_feature_flags = 32;
+pub const nl80211_feature_flags_NL80211_FEATURE_LOW_PRIORITY_SCAN: nl80211_feature_flags = 64;
+pub const nl80211_feature_flags_NL80211_FEATURE_SCAN_FLUSH: nl80211_feature_flags = 128;
+pub const nl80211_feature_flags_NL80211_FEATURE_AP_SCAN: nl80211_feature_flags = 256;
+pub const nl80211_feature_flags_NL80211_FEATURE_VIF_TXPOWER: nl80211_feature_flags = 512;
+pub const nl80211_feature_flags_NL80211_FEATURE_NEED_OBSS_SCAN: nl80211_feature_flags = 1024;
+pub const nl80211_feature_flags_NL80211_FEATURE_P2P_GO_CTWIN: nl80211_feature_flags = 2048;
+pub const nl80211_feature_flags_NL80211_FEATURE_P2P_GO_OPPPS: nl80211_feature_flags = 4096;
+pub const nl80211_feature_flags_NL80211_FEATURE_ADVERTISE_CHAN_LIMITS: nl80211_feature_flags =
+  16384;
+pub const nl80211_feature_flags_NL80211_FEATURE_FULL_AP_CLIENT_STATE: nl80211_feature_flags = 32768;
+pub const nl80211_feature_flags_NL80211_FEATURE_USERSPACE_MPM: nl80211_feature_flags = 65536;
+pub const nl80211_feature_flags_NL80211_FEATURE_ACTIVE_MONITOR: nl80211_feature_flags = 131072;
+pub const nl80211_feature_flags_NL80211_FEATURE_AP_MODE_CHAN_WIDTH_CHANGE: nl80211_feature_flags =
+  262144;
+pub const nl80211_feature_flags_NL80211_FEATURE_DS_PARAM_SET_IE_IN_PROBES: nl80211_feature_flags =
+  524288;
+pub const nl80211_feature_flags_NL80211_FEATURE_WFA_TPC_IE_IN_PROBES: nl80211_feature_flags =
+  1048576;
+pub const nl80211_feature_flags_NL80211_FEATURE_QUIET: nl80211_feature_flags = 2097152;
+pub const nl80211_feature_flags_NL80211_FEATURE_TX_POWER_INSERTION: nl80211_feature_flags = 4194304;
+pub const nl80211_feature_flags_NL80211_FEATURE_ACKTO_ESTIMATION: nl80211_feature_flags = 8388608;
+pub const nl80211_feature_flags_NL80211_FEATURE_STATIC_SMPS: nl80211_feature_flags = 16777216;
+pub const nl80211_feature_flags_NL80211_FEATURE_DYNAMIC_SMPS: nl80211_feature_flags = 33554432;
+pub const nl80211_feature_flags_NL80211_FEATURE_SUPPORTS_WMM_ADMISSION: nl80211_feature_flags =
+  67108864;
+pub const nl80211_feature_flags_NL80211_FEATURE_MAC_ON_CREATE: nl80211_feature_flags = 134217728;
+pub const nl80211_feature_flags_NL80211_FEATURE_TDLS_CHANNEL_SWITCH: nl80211_feature_flags =
+  268435456;
+pub const nl80211_feature_flags_NL80211_FEATURE_SCAN_RANDOM_MAC_ADDR: nl80211_feature_flags =
+  536870912;
+pub const nl80211_feature_flags_NL80211_FEATURE_SCHED_SCAN_RANDOM_MAC_ADDR: nl80211_feature_flags =
+  1073741824;
+pub const nl80211_feature_flags_NL80211_FEATURE_ND_RANDOM_MAC_ADDR: nl80211_feature_flags =
+  -2147483648;
+pub type nl80211_feature_flags = i32;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_VHT_IBSS: nl80211_ext_feature_index = 0;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_RRM: nl80211_ext_feature_index = 1;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_MU_MIMO_AIR_SNIFFER:
+  nl80211_ext_feature_index = 2;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_SCAN_START_TIME: nl80211_ext_feature_index =
+  3;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_BSS_PARENT_TSF: nl80211_ext_feature_index =
+  4;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_SET_SCAN_DWELL: nl80211_ext_feature_index =
+  5;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_BEACON_RATE_LEGACY:
+  nl80211_ext_feature_index = 6;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_BEACON_RATE_HT: nl80211_ext_feature_index =
+  7;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_BEACON_RATE_VHT: nl80211_ext_feature_index =
+  8;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_FILS_STA: nl80211_ext_feature_index = 9;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_MGMT_TX_RANDOM_TA:
+  nl80211_ext_feature_index = 10;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_MGMT_TX_RANDOM_TA_CONNECTED:
+  nl80211_ext_feature_index = 11;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_SCHED_SCAN_RELATIVE_RSSI:
+  nl80211_ext_feature_index = 12;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_CQM_RSSI_LIST: nl80211_ext_feature_index =
+  13;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_FILS_SK_OFFLOAD: nl80211_ext_feature_index =
+  14;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_4WAY_HANDSHAKE_STA_PSK:
+  nl80211_ext_feature_index = 15;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_4WAY_HANDSHAKE_STA_1X:
+  nl80211_ext_feature_index = 16;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_FILS_MAX_CHANNEL_TIME:
+  nl80211_ext_feature_index = 17;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_ACCEPT_BCAST_PROBE_RESP:
+  nl80211_ext_feature_index = 18;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_OCE_PROBE_REQ_HIGH_TX_RATE:
+  nl80211_ext_feature_index = 19;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_OCE_PROBE_REQ_DEFERRAL_SUPPRESSION:
+  nl80211_ext_feature_index = 20;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_MFP_OPTIONAL: nl80211_ext_feature_index =
+  21;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_LOW_SPAN_SCAN: nl80211_ext_feature_index =
+  22;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_LOW_POWER_SCAN: nl80211_ext_feature_index =
+  23;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_HIGH_ACCURACY_SCAN:
+  nl80211_ext_feature_index = 24;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_DFS_OFFLOAD: nl80211_ext_feature_index = 25;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_CONTROL_PORT_OVER_NL80211:
+  nl80211_ext_feature_index = 26;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_DATA_ACK_SIGNAL_SUPPORT:
+  nl80211_ext_feature_index = 27;
+pub const nl80211_ext_feature_index_NL80211_EXT_FEATURE_TXQS: nl80211_ext_feature_index = 28;
+pub const nl80211_ext_feature_index_NUM_NL80211_EXT_FEATURES: nl80211_ext_feature_index = 29;
+pub const nl80211_ext_feature_index_MAX_NL80211_EXT_FEATURES: nl80211_ext_feature_index = 28;
+pub type nl80211_ext_feature_index = u32;
+pub const nl80211_probe_resp_offload_support_attr_NL80211_PROBE_RESP_OFFLOAD_SUPPORT_WPS:
+  nl80211_probe_resp_offload_support_attr = 1;
+pub const nl80211_probe_resp_offload_support_attr_NL80211_PROBE_RESP_OFFLOAD_SUPPORT_WPS2:
+  nl80211_probe_resp_offload_support_attr = 2;
+pub const nl80211_probe_resp_offload_support_attr_NL80211_PROBE_RESP_OFFLOAD_SUPPORT_P2P:
+  nl80211_probe_resp_offload_support_attr = 4;
+pub const nl80211_probe_resp_offload_support_attr_NL80211_PROBE_RESP_OFFLOAD_SUPPORT_80211U:
+  nl80211_probe_resp_offload_support_attr = 8;
+pub type nl80211_probe_resp_offload_support_attr = u32;
+pub const nl80211_connect_failed_reason_NL80211_CONN_FAIL_MAX_CLIENTS:
+  nl80211_connect_failed_reason = 0;
+pub const nl80211_connect_failed_reason_NL80211_CONN_FAIL_BLOCKED_CLIENT:
+  nl80211_connect_failed_reason = 1;
+pub type nl80211_connect_failed_reason = u32;
+pub const nl80211_timeout_reason_NL80211_TIMEOUT_UNSPECIFIED: nl80211_timeout_reason = 0;
+pub const nl80211_timeout_reason_NL80211_TIMEOUT_SCAN: nl80211_timeout_reason = 1;
+pub const nl80211_timeout_reason_NL80211_TIMEOUT_AUTH: nl80211_timeout_reason = 2;
+pub const nl80211_timeout_reason_NL80211_TIMEOUT_ASSOC: nl80211_timeout_reason = 3;
+pub type nl80211_timeout_reason = u32;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_LOW_PRIORITY: nl80211_scan_flags = 1;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_FLUSH: nl80211_scan_flags = 2;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_AP: nl80211_scan_flags = 4;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_RANDOM_ADDR: nl80211_scan_flags = 8;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_FILS_MAX_CHANNEL_TIME: nl80211_scan_flags = 16;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_ACCEPT_BCAST_PROBE_RESP: nl80211_scan_flags = 32;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_OCE_PROBE_REQ_HIGH_TX_RATE: nl80211_scan_flags = 64;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_OCE_PROBE_REQ_DEFERRAL_SUPPRESSION:
+  nl80211_scan_flags = 128;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_LOW_SPAN: nl80211_scan_flags = 256;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_LOW_POWER: nl80211_scan_flags = 512;
+pub const nl80211_scan_flags_NL80211_SCAN_FLAG_HIGH_ACCURACY: nl80211_scan_flags = 1024;
+pub type nl80211_scan_flags = u32;
+pub const nl80211_acl_policy_NL80211_ACL_POLICY_ACCEPT_UNLESS_LISTED: nl80211_acl_policy = 0;
+pub const nl80211_acl_policy_NL80211_ACL_POLICY_DENY_UNLESS_LISTED: nl80211_acl_policy = 1;
+pub type nl80211_acl_policy = u32;
+pub const nl80211_smps_mode_NL80211_SMPS_OFF: nl80211_smps_mode = 0;
+pub const nl80211_smps_mode_NL80211_SMPS_STATIC: nl80211_smps_mode = 1;
+pub const nl80211_smps_mode_NL80211_SMPS_DYNAMIC: nl80211_smps_mode = 2;
+pub const nl80211_smps_mode___NL80211_SMPS_AFTER_LAST: nl80211_smps_mode = 3;
+pub const nl80211_smps_mode_NL80211_SMPS_MAX: nl80211_smps_mode = 2;
+pub type nl80211_smps_mode = u32;
+pub const nl80211_radar_event_NL80211_RADAR_DETECTED: nl80211_radar_event = 0;
+pub const nl80211_radar_event_NL80211_RADAR_CAC_FINISHED: nl80211_radar_event = 1;
+pub const nl80211_radar_event_NL80211_RADAR_CAC_ABORTED: nl80211_radar_event = 2;
+pub const nl80211_radar_event_NL80211_RADAR_NOP_FINISHED: nl80211_radar_event = 3;
+pub const nl80211_radar_event_NL80211_RADAR_PRE_CAC_EXPIRED: nl80211_radar_event = 4;
+pub const nl80211_radar_event_NL80211_RADAR_CAC_STARTED: nl80211_radar_event = 5;
+pub type nl80211_radar_event = u32;
+pub const nl80211_dfs_state_NL80211_DFS_USABLE: nl80211_dfs_state = 0;
+pub const nl80211_dfs_state_NL80211_DFS_UNAVAILABLE: nl80211_dfs_state = 1;
+pub const nl80211_dfs_state_NL80211_DFS_AVAILABLE: nl80211_dfs_state = 2;
+pub type nl80211_dfs_state = u32;
+pub const nl80211_protocol_features_NL80211_PROTOCOL_FEATURE_SPLIT_WIPHY_DUMP:
+  nl80211_protocol_features = 1;
+pub type nl80211_protocol_features = u32;
+pub const nl80211_crit_proto_id_NL80211_CRIT_PROTO_UNSPEC: nl80211_crit_proto_id = 0;
+pub const nl80211_crit_proto_id_NL80211_CRIT_PROTO_DHCP: nl80211_crit_proto_id = 1;
+pub const nl80211_crit_proto_id_NL80211_CRIT_PROTO_EAPOL: nl80211_crit_proto_id = 2;
+pub const nl80211_crit_proto_id_NL80211_CRIT_PROTO_APIPA: nl80211_crit_proto_id = 3;
+pub const nl80211_crit_proto_id_NUM_NL80211_CRIT_PROTO: nl80211_crit_proto_id = 4;
+pub type nl80211_crit_proto_id = u32;
+pub const nl80211_rxmgmt_flags_NL80211_RXMGMT_FLAG_ANSWERED: nl80211_rxmgmt_flags = 1;
+pub type nl80211_rxmgmt_flags = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_vendor_cmd_info {
+  pub vendor_id: __u32,
+  pub subcmd: __u32,
+}
+#[test]
+fn bindgen_test_layout_nl80211_vendor_cmd_info() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_vendor_cmd_info>(),
+    8usize,
+    concat!("Size of: ", stringify!(nl80211_vendor_cmd_info))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_vendor_cmd_info>(),
+    4usize,
+    concat!("Alignment of ", stringify!(nl80211_vendor_cmd_info))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_vendor_cmd_info>())).vendor_id as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_vendor_cmd_info),
+      "::",
+      stringify!(vendor_id)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_vendor_cmd_info>())).subcmd as *const _ as usize },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_vendor_cmd_info),
+      "::",
+      stringify!(subcmd)
+    )
+  );
+}
+pub const nl80211_tdls_peer_capability_NL80211_TDLS_PEER_HT: nl80211_tdls_peer_capability = 1;
+pub const nl80211_tdls_peer_capability_NL80211_TDLS_PEER_VHT: nl80211_tdls_peer_capability = 2;
+pub const nl80211_tdls_peer_capability_NL80211_TDLS_PEER_WMM: nl80211_tdls_peer_capability = 4;
+pub type nl80211_tdls_peer_capability = u32;
+pub const nl80211_sched_scan_plan___NL80211_SCHED_SCAN_PLAN_INVALID: nl80211_sched_scan_plan = 0;
+pub const nl80211_sched_scan_plan_NL80211_SCHED_SCAN_PLAN_INTERVAL: nl80211_sched_scan_plan = 1;
+pub const nl80211_sched_scan_plan_NL80211_SCHED_SCAN_PLAN_ITERATIONS: nl80211_sched_scan_plan = 2;
+pub const nl80211_sched_scan_plan___NL80211_SCHED_SCAN_PLAN_AFTER_LAST: nl80211_sched_scan_plan = 3;
+pub const nl80211_sched_scan_plan_NL80211_SCHED_SCAN_PLAN_MAX: nl80211_sched_scan_plan = 2;
+pub type nl80211_sched_scan_plan = u32;
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_bss_select_rssi_adjust {
+  pub band: __u8,
+  pub delta: __s8,
+}
+#[test]
+fn bindgen_test_layout_nl80211_bss_select_rssi_adjust() {
+  assert_eq!(
+    ::std::mem::size_of::<nl80211_bss_select_rssi_adjust>(),
+    2usize,
+    concat!("Size of: ", stringify!(nl80211_bss_select_rssi_adjust))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nl80211_bss_select_rssi_adjust>(),
+    1usize,
+    concat!("Alignment of ", stringify!(nl80211_bss_select_rssi_adjust))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nl80211_bss_select_rssi_adjust>())).band as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_bss_select_rssi_adjust),
+      "::",
+      stringify!(band)
+    )
+  );
+  assert_eq!(
+    unsafe {
+      &(*(::std::ptr::null::<nl80211_bss_select_rssi_adjust>())).delta as *const _ as usize
+    },
+    1usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nl80211_bss_select_rssi_adjust),
+      "::",
+      stringify!(delta)
+    )
+  );
+}
+pub const nl80211_bss_select_attr___NL80211_BSS_SELECT_ATTR_INVALID: nl80211_bss_select_attr = 0;
+pub const nl80211_bss_select_attr_NL80211_BSS_SELECT_ATTR_RSSI: nl80211_bss_select_attr = 1;
+pub const nl80211_bss_select_attr_NL80211_BSS_SELECT_ATTR_BAND_PREF: nl80211_bss_select_attr = 2;
+pub const nl80211_bss_select_attr_NL80211_BSS_SELECT_ATTR_RSSI_ADJUST: nl80211_bss_select_attr = 3;
+pub const nl80211_bss_select_attr___NL80211_BSS_SELECT_ATTR_AFTER_LAST: nl80211_bss_select_attr = 4;
+pub const nl80211_bss_select_attr_NL80211_BSS_SELECT_ATTR_MAX: nl80211_bss_select_attr = 3;
+pub type nl80211_bss_select_attr = u32;
+pub const nl80211_nan_function_type_NL80211_NAN_FUNC_PUBLISH: nl80211_nan_function_type = 0;
+pub const nl80211_nan_function_type_NL80211_NAN_FUNC_SUBSCRIBE: nl80211_nan_function_type = 1;
+pub const nl80211_nan_function_type_NL80211_NAN_FUNC_FOLLOW_UP: nl80211_nan_function_type = 2;
+pub const nl80211_nan_function_type___NL80211_NAN_FUNC_TYPE_AFTER_LAST: nl80211_nan_function_type =
+  3;
+pub const nl80211_nan_function_type_NL80211_NAN_FUNC_MAX_TYPE: nl80211_nan_function_type = 2;
+pub type nl80211_nan_function_type = u32;
+pub const nl80211_nan_publish_type_NL80211_NAN_SOLICITED_PUBLISH: nl80211_nan_publish_type = 1;
+pub const nl80211_nan_publish_type_NL80211_NAN_UNSOLICITED_PUBLISH: nl80211_nan_publish_type = 2;
+pub type nl80211_nan_publish_type = u32;
+pub const nl80211_nan_func_term_reason_NL80211_NAN_FUNC_TERM_REASON_USER_REQUEST:
+  nl80211_nan_func_term_reason = 0;
+pub const nl80211_nan_func_term_reason_NL80211_NAN_FUNC_TERM_REASON_TTL_EXPIRED:
+  nl80211_nan_func_term_reason = 1;
+pub const nl80211_nan_func_term_reason_NL80211_NAN_FUNC_TERM_REASON_ERROR:
+  nl80211_nan_func_term_reason = 2;
+pub type nl80211_nan_func_term_reason = u32;
+pub const nl80211_nan_func_attributes___NL80211_NAN_FUNC_INVALID: nl80211_nan_func_attributes = 0;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_TYPE: nl80211_nan_func_attributes = 1;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_SERVICE_ID: nl80211_nan_func_attributes = 2;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_PUBLISH_TYPE: nl80211_nan_func_attributes =
+  3;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_PUBLISH_BCAST: nl80211_nan_func_attributes =
+  4;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_SUBSCRIBE_ACTIVE:
+  nl80211_nan_func_attributes = 5;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_FOLLOW_UP_ID: nl80211_nan_func_attributes =
+  6;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_FOLLOW_UP_REQ_ID:
+  nl80211_nan_func_attributes = 7;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_FOLLOW_UP_DEST: nl80211_nan_func_attributes =
+  8;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_CLOSE_RANGE: nl80211_nan_func_attributes = 9;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_TTL: nl80211_nan_func_attributes = 10;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_SERVICE_INFO: nl80211_nan_func_attributes =
+  11;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_SRF: nl80211_nan_func_attributes = 12;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_RX_MATCH_FILTER:
+  nl80211_nan_func_attributes = 13;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_TX_MATCH_FILTER:
+  nl80211_nan_func_attributes = 14;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_INSTANCE_ID: nl80211_nan_func_attributes =
+  15;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_TERM_REASON: nl80211_nan_func_attributes =
+  16;
+pub const nl80211_nan_func_attributes_NUM_NL80211_NAN_FUNC_ATTR: nl80211_nan_func_attributes = 17;
+pub const nl80211_nan_func_attributes_NL80211_NAN_FUNC_ATTR_MAX: nl80211_nan_func_attributes = 16;
+pub type nl80211_nan_func_attributes = u32;
+pub const nl80211_nan_srf_attributes___NL80211_NAN_SRF_INVALID: nl80211_nan_srf_attributes = 0;
+pub const nl80211_nan_srf_attributes_NL80211_NAN_SRF_INCLUDE: nl80211_nan_srf_attributes = 1;
+pub const nl80211_nan_srf_attributes_NL80211_NAN_SRF_BF: nl80211_nan_srf_attributes = 2;
+pub const nl80211_nan_srf_attributes_NL80211_NAN_SRF_BF_IDX: nl80211_nan_srf_attributes = 3;
+pub const nl80211_nan_srf_attributes_NL80211_NAN_SRF_MAC_ADDRS: nl80211_nan_srf_attributes = 4;
+pub const nl80211_nan_srf_attributes_NUM_NL80211_NAN_SRF_ATTR: nl80211_nan_srf_attributes = 5;
+pub const nl80211_nan_srf_attributes_NL80211_NAN_SRF_ATTR_MAX: nl80211_nan_srf_attributes = 4;
+pub type nl80211_nan_srf_attributes = u32;
+pub const nl80211_nan_match_attributes___NL80211_NAN_MATCH_INVALID: nl80211_nan_match_attributes =
+  0;
+pub const nl80211_nan_match_attributes_NL80211_NAN_MATCH_FUNC_LOCAL: nl80211_nan_match_attributes =
+  1;
+pub const nl80211_nan_match_attributes_NL80211_NAN_MATCH_FUNC_PEER: nl80211_nan_match_attributes =
+  2;
+pub const nl80211_nan_match_attributes_NUM_NL80211_NAN_MATCH_ATTR: nl80211_nan_match_attributes = 3;
+pub const nl80211_nan_match_attributes_NL80211_NAN_MATCH_ATTR_MAX: nl80211_nan_match_attributes = 2;
+pub type nl80211_nan_match_attributes = u32;
+pub const nl80211_external_auth_action_NL80211_EXTERNAL_AUTH_START: nl80211_external_auth_action =
+  0;
+pub const nl80211_external_auth_action_NL80211_EXTERNAL_AUTH_ABORT: nl80211_external_auth_action =
+  1;
+pub type nl80211_external_auth_action = u32;

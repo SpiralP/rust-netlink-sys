@@ -6,3 +6,6 @@ pub use self::linux::*;
 
 #[cfg_attr(target_os = "linux", link(name = "nl-3"))]
 extern "C" {}
+
+#[cfg_attr(target_os = "linux", link(name = "nl-genl-3"))]
+extern "C" {}

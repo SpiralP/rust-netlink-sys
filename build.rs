@@ -27,6 +27,7 @@ mod builder {
       .whitelist_type("nl.*")
       .whitelist_function("genl.*")
       .whitelist_type("genl.*")
+      .whitelist_function("if_nametoindex")
       .header_contents(
         "input.h",
         "
@@ -36,6 +37,8 @@ mod builder {
         #include <netlink/genl/genl.h>
         #include <netlink/genl/family.h>
         #include <netlink/genl/ctrl.h>
+        #include <net/if.h>
+        #include <linux/nl80211.h>
         ",
       )
       .clang_arg("-I/usr/include/libnl3")
