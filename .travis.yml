@@ -1,0 +1,28 @@
+language: rust
+rust:
+  - stable
+  - nightly
+
+os:
+  - linux
+
+addons:
+  apt:
+    packages:
+      - libnl-3-dev
+      - libnl-3-200
+      - libnl-genl-3-dev
+      - libnl-genl-3-200
+
+script:
+  - cargo test -- --nocapture
+
+cache: cargo
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: never

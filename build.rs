@@ -19,6 +19,7 @@ mod builder {
       .raw_line("#![allow(clippy::const_static_lifetime)]")
       .raw_line("#![allow(clippy::unreadable_literal)]")
       .raw_line("#![allow(clippy::cyclomatic_complexity)]")
+      .raw_line("#![allow(clippy::useless_transmute)]")
       .whitelist_var("LIBNL.*")
       .whitelist_var("NETLINK.*")
       .whitelist_var("NL.*")

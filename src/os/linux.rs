@@ -6,6 +6,7 @@
 #![allow(clippy::const_static_lifetime)]
 #![allow(clippy::unreadable_literal)]
 #![allow(clippy::cyclomatic_complexity)]
+#![allow(clippy::useless_transmute)]
 
 #[repr(C)]
 #[derive(Default)]
