@@ -115,7 +115,20 @@ pub const NLE_ATTRSIZE: u32 = 34;
 pub const NLE_MAX: u32 = 34;
 pub const NL_PROB_MIN: u32 = 0;
 pub const NL_PROB_MAX: u32 = 4294967295;
+pub const NL_DONTPAD: u32 = 0;
+pub const NL_AUTO_PORT: u32 = 0;
+pub const NL_AUTO_PID: u32 = 0;
+pub const NL_AUTO_SEQ: u32 = 0;
+pub const NL_CACHE_AF_ITER: u32 = 1;
+pub const NL_AUTO_PROVIDE: u32 = 1;
+pub const NL_ALLOCATED_SOCK: u32 = 2;
+pub type __int8_t = ::std::os::raw::c_schar;
+pub type __uint8_t = ::std::os::raw::c_uchar;
+pub type __int16_t = ::std::os::raw::c_short;
+pub type __uint16_t = ::std::os::raw::c_ushort;
+pub type __int32_t = ::std::os::raw::c_int;
 pub type __uint32_t = ::std::os::raw::c_uint;
+pub type __int64_t = ::std::os::raw::c_long;
 pub type __uint64_t = ::std::os::raw::c_ulong;
 pub type __nlink_t = ::std::os::raw::c_ulong;
 pub type __off_t = ::std::os::raw::c_long;
@@ -515,6 +528,46 @@ fn bindgen_test_layout_iovec() {
   );
 }
 pub type socklen_t = __socklen_t;
+pub type sa_family_t = ::std::os::raw::c_ushort;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sockaddr {
+  pub sa_family: sa_family_t,
+  pub sa_data: [::std::os::raw::c_char; 14usize],
+}
+#[test]
+fn bindgen_test_layout_sockaddr() {
+  assert_eq!(
+    ::std::mem::size_of::<sockaddr>(),
+    16usize,
+    concat!("Size of: ", stringify!(sockaddr))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<sockaddr>(),
+    2usize,
+    concat!("Alignment of ", stringify!(sockaddr))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<sockaddr>())).sa_family as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(sockaddr),
+      "::",
+      stringify!(sa_family)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<sockaddr>())).sa_data as *const _ as usize },
+    2usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(sockaddr),
+      "::",
+      stringify!(sa_data)
+    )
+  );
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct msghdr {
@@ -606,6 +659,111 @@ fn bindgen_test_layout_msghdr() {
       stringify!(msghdr),
       "::",
       stringify!(msg_flags)
+    )
+  );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct addrinfo {
+  pub ai_flags: ::std::os::raw::c_int,
+  pub ai_family: ::std::os::raw::c_int,
+  pub ai_socktype: ::std::os::raw::c_int,
+  pub ai_protocol: ::std::os::raw::c_int,
+  pub ai_addrlen: socklen_t,
+  pub ai_addr: *mut sockaddr,
+  pub ai_canonname: *mut ::std::os::raw::c_char,
+  pub ai_next: *mut addrinfo,
+}
+#[test]
+fn bindgen_test_layout_addrinfo() {
+  assert_eq!(
+    ::std::mem::size_of::<addrinfo>(),
+    48usize,
+    concat!("Size of: ", stringify!(addrinfo))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<addrinfo>(),
+    8usize,
+    concat!("Alignment of ", stringify!(addrinfo))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_flags as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_flags)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_family as *const _ as usize },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_family)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_socktype as *const _ as usize },
+    8usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_socktype)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_protocol as *const _ as usize },
+    12usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_protocol)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_addrlen as *const _ as usize },
+    16usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_addrlen)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_addr as *const _ as usize },
+    24usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_addr)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_canonname as *const _ as usize },
+    32usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_canonname)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<addrinfo>())).ai_next as *const _ as usize },
+    40usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(addrinfo),
+      "::",
+      stringify!(ai_next)
     )
   );
 }
@@ -2087,4 +2245,1118 @@ extern "C" {
 }
 extern "C" {
   pub fn nl_str2nlfamily(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl_addr {
+  _unused: [u8; 0],
+}
+extern "C" {
+  pub fn nl_addr_alloc(arg1: usize) -> *mut nl_addr;
+}
+extern "C" {
+  pub fn nl_addr_alloc_attr(arg1: *const nlattr, arg2: ::std::os::raw::c_int) -> *mut nl_addr;
+}
+extern "C" {
+  pub fn nl_addr_build(
+    arg1: ::std::os::raw::c_int,
+    arg2: *const ::std::os::raw::c_void,
+    arg3: usize,
+  ) -> *mut nl_addr;
+}
+extern "C" {
+  pub fn nl_addr_parse(
+    arg1: *const ::std::os::raw::c_char,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut *mut nl_addr,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_clone(arg1: *const nl_addr) -> *mut nl_addr;
+}
+extern "C" {
+  pub fn nl_addr_get(arg1: *mut nl_addr) -> *mut nl_addr;
+}
+extern "C" {
+  pub fn nl_addr_put(arg1: *mut nl_addr);
+}
+extern "C" {
+  pub fn nl_addr_shared(arg1: *const nl_addr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_cmp(arg1: *const nl_addr, arg2: *const nl_addr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_cmp_prefix(arg1: *const nl_addr, arg2: *const nl_addr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_iszero(arg1: *const nl_addr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_valid(
+    arg1: *const ::std::os::raw::c_char,
+    arg2: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_guess_family(arg1: *const nl_addr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_fill_sockaddr(
+    arg1: *const nl_addr,
+    arg2: *mut sockaddr,
+    arg3: *mut socklen_t,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_info(arg1: *const nl_addr, arg2: *mut *mut addrinfo) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_resolve(
+    arg1: *const nl_addr,
+    arg2: *mut ::std::os::raw::c_char,
+    arg3: usize,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_set_family(arg1: *mut nl_addr, arg2: ::std::os::raw::c_int);
+}
+extern "C" {
+  pub fn nl_addr_get_family(arg1: *const nl_addr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_set_binary_addr(
+    arg1: *mut nl_addr,
+    arg2: *const ::std::os::raw::c_void,
+    arg3: usize,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr_get_binary_addr(arg1: *const nl_addr) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn nl_addr_get_len(arg1: *const nl_addr) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+  pub fn nl_addr_set_prefixlen(arg1: *mut nl_addr, arg2: ::std::os::raw::c_int);
+}
+extern "C" {
+  pub fn nl_addr_get_prefixlen(arg1: *const nl_addr) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+  pub fn nl_af2str(
+    arg1: ::std::os::raw::c_int,
+    arg2: *mut ::std::os::raw::c_char,
+    arg3: usize,
+  ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+  pub fn nl_str2af(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_addr2str(
+    arg1: *const nl_addr,
+    arg2: *mut ::std::os::raw::c_char,
+    arg3: usize,
+  ) -> *mut ::std::os::raw::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl_data {
+  _unused: [u8; 0],
+}
+extern "C" {
+  pub fn nl_data_alloc(arg1: *const ::std::os::raw::c_void, arg2: usize) -> *mut nl_data;
+}
+extern "C" {
+  pub fn nl_data_alloc_attr(arg1: *const nlattr) -> *mut nl_data;
+}
+extern "C" {
+  pub fn nl_data_clone(arg1: *const nl_data) -> *mut nl_data;
+}
+extern "C" {
+  pub fn nl_data_append(
+    arg1: *mut nl_data,
+    arg2: *const ::std::os::raw::c_void,
+    arg3: usize,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_data_free(arg1: *mut nl_data);
+}
+extern "C" {
+  pub fn nl_data_get(arg1: *const nl_data) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn nl_data_get_size(arg1: *const nl_data) -> usize;
+}
+extern "C" {
+  pub fn nl_data_cmp(arg1: *const nl_data, arg2: *const nl_data) -> ::std::os::raw::c_int;
+}
+#[doc = "< Unspecified type, binary data chunk"]
+pub const NLA_UNSPEC: _bindgen_ty_68 = 0;
+#[doc = "< 8 bit integer"]
+pub const NLA_U8: _bindgen_ty_68 = 1;
+#[doc = "< 16 bit integer"]
+pub const NLA_U16: _bindgen_ty_68 = 2;
+#[doc = "< 32 bit integer"]
+pub const NLA_U32: _bindgen_ty_68 = 3;
+#[doc = "< 64 bit integer"]
+pub const NLA_U64: _bindgen_ty_68 = 4;
+#[doc = "< NUL terminated character string"]
+pub const NLA_STRING: _bindgen_ty_68 = 5;
+#[doc = "< Flag"]
+pub const NLA_FLAG: _bindgen_ty_68 = 6;
+#[doc = "< Micro seconds (64bit)"]
+pub const NLA_MSECS: _bindgen_ty_68 = 7;
+#[doc = "< Nested attributes"]
+pub const NLA_NESTED: _bindgen_ty_68 = 8;
+pub const NLA_NESTED_COMPAT: _bindgen_ty_68 = 9;
+pub const NLA_NUL_STRING: _bindgen_ty_68 = 10;
+pub const NLA_BINARY: _bindgen_ty_68 = 11;
+pub const NLA_S8: _bindgen_ty_68 = 12;
+pub const NLA_S16: _bindgen_ty_68 = 13;
+pub const NLA_S32: _bindgen_ty_68 = 14;
+pub const NLA_S64: _bindgen_ty_68 = 15;
+pub const __NLA_TYPE_MAX: _bindgen_ty_68 = 16;
+#[doc = " @ingroup attr"]
+#[doc = " Basic attribute data types"]
+#[doc = ""]
+#[doc = " See section @core_doc{core_attr_parse,Attribute Parsing} for more details."]
+pub type _bindgen_ty_68 = u32;
+#[doc = " @ingroup attr"]
+#[doc = " Attribute validation policy."]
+#[doc = ""]
+#[doc = " See section @core_doc{core_attr_parse,Attribute Parsing} for more details."]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nla_policy {
+  #[doc = " Type of attribute or NLA_UNSPEC"]
+  pub type_: u16,
+  #[doc = " Minimal length of payload required"]
+  pub minlen: u16,
+  #[doc = " Maximal length of payload allowed"]
+  pub maxlen: u16,
+}
+#[test]
+fn bindgen_test_layout_nla_policy() {
+  assert_eq!(
+    ::std::mem::size_of::<nla_policy>(),
+    6usize,
+    concat!("Size of: ", stringify!(nla_policy))
+  );
+  assert_eq!(
+    ::std::mem::align_of::<nla_policy>(),
+    2usize,
+    concat!("Alignment of ", stringify!(nla_policy))
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nla_policy>())).type_ as *const _ as usize },
+    0usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nla_policy),
+      "::",
+      stringify!(type_)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nla_policy>())).minlen as *const _ as usize },
+    2usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nla_policy),
+      "::",
+      stringify!(minlen)
+    )
+  );
+  assert_eq!(
+    unsafe { &(*(::std::ptr::null::<nla_policy>())).maxlen as *const _ as usize },
+    4usize,
+    concat!(
+      "Offset of field: ",
+      stringify!(nla_policy),
+      "::",
+      stringify!(maxlen)
+    )
+  );
+}
+extern "C" {
+  pub fn nla_attr_size(payload: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_total_size(payload: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_padlen(payload: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_type(arg1: *const nlattr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_data(arg1: *const nlattr) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn nla_len(arg1: *const nlattr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_ok(arg1: *const nlattr, arg2: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_next(arg1: *const nlattr, arg2: *mut ::std::os::raw::c_int) -> *mut nlattr;
+}
+extern "C" {
+  pub fn nla_parse(
+    arg1: *mut *mut nlattr,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut nlattr,
+    arg4: ::std::os::raw::c_int,
+    arg5: *mut nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_validate(
+    arg1: *const nlattr,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+    arg4: *const nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_find(
+    arg1: *const nlattr,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+  ) -> *mut nlattr;
+}
+extern "C" {
+  pub fn nla_memcpy(
+    arg1: *mut ::std::os::raw::c_void,
+    arg2: *const nlattr,
+    arg3: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_strlcpy(arg1: *mut ::std::os::raw::c_char, arg2: *const nlattr, arg3: usize) -> usize;
+}
+extern "C" {
+  pub fn nla_memcmp(
+    arg1: *const nlattr,
+    arg2: *const ::std::os::raw::c_void,
+    arg3: usize,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_strcmp(
+    arg1: *const nlattr,
+    arg2: *const ::std::os::raw::c_char,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_reserve(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+  ) -> *mut nlattr;
+}
+extern "C" {
+  pub fn nla_put(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+    arg4: *const ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_put_data(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: *const nl_data,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_put_addr(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut nl_addr,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_s8(arg1: *const nlattr) -> i8;
+}
+extern "C" {
+  pub fn nla_put_s8(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: i8,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_u8(arg1: *const nlattr) -> u8;
+}
+extern "C" {
+  pub fn nla_put_u8(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: u8,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_s16(arg1: *const nlattr) -> i16;
+}
+extern "C" {
+  pub fn nla_put_s16(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: i16,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_u16(arg1: *const nlattr) -> u16;
+}
+extern "C" {
+  pub fn nla_put_u16(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: u16,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_s32(arg1: *const nlattr) -> i32;
+}
+extern "C" {
+  pub fn nla_put_s32(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: i32,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_u32(arg1: *const nlattr) -> u32;
+}
+extern "C" {
+  pub fn nla_put_u32(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: u32,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_s64(arg1: *const nlattr) -> i64;
+}
+extern "C" {
+  pub fn nla_put_s64(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: i64,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_u64(arg1: *const nlattr) -> u64;
+}
+extern "C" {
+  pub fn nla_put_u64(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: u64,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_string(arg1: *const nlattr) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+  pub fn nla_strdup(arg1: *const nlattr) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+  pub fn nla_put_string(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: *const ::std::os::raw::c_char,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_flag(arg1: *const nlattr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_put_flag(arg1: *mut nl_msg, arg2: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_get_msecs(arg1: *const nlattr) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+  pub fn nla_put_msecs(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_ulong,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_put_nested(
+    arg1: *mut nl_msg,
+    arg2: ::std::os::raw::c_int,
+    arg3: *const nl_msg,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_nest_start(arg1: *mut nl_msg, arg2: ::std::os::raw::c_int) -> *mut nlattr;
+}
+extern "C" {
+  pub fn nla_nest_end(arg1: *mut nl_msg, arg2: *mut nlattr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_nest_cancel(arg1: *mut nl_msg, arg2: *const nlattr);
+}
+extern "C" {
+  pub fn nla_parse_nested(
+    arg1: *mut *mut nlattr,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut nlattr,
+    arg4: *mut nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nla_is_nested(arg1: *const nlattr) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl_tree {
+  _unused: [u8; 0],
+}
+extern "C" {
+  pub fn nlmsg_size(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_total_size(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_padlen(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_data(arg1: *const nlmsghdr) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn nlmsg_datalen(arg1: *const nlmsghdr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_tail(arg1: *const nlmsghdr) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn nlmsg_attrdata(arg1: *const nlmsghdr, arg2: ::std::os::raw::c_int) -> *mut nlattr;
+}
+extern "C" {
+  pub fn nlmsg_attrlen(arg1: *const nlmsghdr, arg2: ::std::os::raw::c_int)
+    -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_valid_hdr(
+    arg1: *const nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_ok(arg1: *const nlmsghdr, arg2: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_next(arg1: *mut nlmsghdr, arg2: *mut ::std::os::raw::c_int) -> *mut nlmsghdr;
+}
+extern "C" {
+  pub fn nlmsg_parse(
+    arg1: *mut nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut *mut nlattr,
+    arg4: ::std::os::raw::c_int,
+    arg5: *mut nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_find_attr(
+    arg1: *mut nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+  ) -> *mut nlattr;
+}
+extern "C" {
+  pub fn nlmsg_validate(
+    arg1: *mut nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+    arg4: *mut nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_alloc() -> *mut nl_msg;
+}
+extern "C" {
+  pub fn nlmsg_alloc_size(arg1: usize) -> *mut nl_msg;
+}
+extern "C" {
+  pub fn nlmsg_alloc_simple(
+    arg1: ::std::os::raw::c_int,
+    arg2: ::std::os::raw::c_int,
+  ) -> *mut nl_msg;
+}
+extern "C" {
+  pub fn nlmsg_set_default_size(arg1: usize);
+}
+extern "C" {
+  pub fn nlmsg_inherit(arg1: *mut nlmsghdr) -> *mut nl_msg;
+}
+extern "C" {
+  pub fn nlmsg_convert(arg1: *mut nlmsghdr) -> *mut nl_msg;
+}
+extern "C" {
+  pub fn nlmsg_reserve(
+    arg1: *mut nl_msg,
+    arg2: usize,
+    arg3: ::std::os::raw::c_int,
+  ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn nlmsg_append(
+    arg1: *mut nl_msg,
+    arg2: *mut ::std::os::raw::c_void,
+    arg3: usize,
+    arg4: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_expand(arg1: *mut nl_msg, arg2: usize) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_put(
+    arg1: *mut nl_msg,
+    arg2: u32,
+    arg3: u32,
+    arg4: ::std::os::raw::c_int,
+    arg5: ::std::os::raw::c_int,
+    arg6: ::std::os::raw::c_int,
+  ) -> *mut nlmsghdr;
+}
+extern "C" {
+  pub fn nlmsg_hdr(arg1: *mut nl_msg) -> *mut nlmsghdr;
+}
+extern "C" {
+  pub fn nlmsg_get(arg1: *mut nl_msg);
+}
+extern "C" {
+  pub fn nlmsg_free(arg1: *mut nl_msg);
+}
+extern "C" {
+  pub fn nlmsg_set_proto(arg1: *mut nl_msg, arg2: ::std::os::raw::c_int);
+}
+extern "C" {
+  pub fn nlmsg_get_proto(arg1: *mut nl_msg) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nlmsg_get_max_size(arg1: *mut nl_msg) -> usize;
+}
+extern "C" {
+  pub fn nlmsg_set_src(arg1: *mut nl_msg, arg2: *mut sockaddr_nl);
+}
+extern "C" {
+  pub fn nlmsg_get_src(arg1: *mut nl_msg) -> *mut sockaddr_nl;
+}
+extern "C" {
+  pub fn nlmsg_set_dst(arg1: *mut nl_msg, arg2: *mut sockaddr_nl);
+}
+extern "C" {
+  pub fn nlmsg_get_dst(arg1: *mut nl_msg) -> *mut sockaddr_nl;
+}
+extern "C" {
+  pub fn nlmsg_set_creds(arg1: *mut nl_msg, arg2: *mut ucred);
+}
+extern "C" {
+  pub fn nlmsg_get_creds(arg1: *mut nl_msg) -> *mut ucred;
+}
+extern "C" {
+  pub fn nl_nlmsgtype2str(
+    arg1: ::std::os::raw::c_int,
+    arg2: *mut ::std::os::raw::c_char,
+    arg3: usize,
+  ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+  pub fn nl_str2nlmsgtype(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_nlmsg_flags2str(
+    arg1: ::std::os::raw::c_int,
+    arg2: *mut ::std::os::raw::c_char,
+    arg3: usize,
+  ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+  pub fn nl_msg_parse(
+    arg1: *mut nl_msg,
+    cb: ::std::option::Option<
+      unsafe extern "C" fn(arg1: *mut nl_object, arg2: *mut ::std::os::raw::c_void),
+    >,
+    arg2: *mut ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_msg_dump(arg1: *mut nl_msg, arg2: *mut FILE);
+}
+extern "C" {
+  pub fn genl_connect(arg1: *mut nl_sock) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genl_send_simple(
+    arg1: *mut nl_sock,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+    arg4: ::std::os::raw::c_int,
+    arg5: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genlmsg_put(
+    arg1: *mut nl_msg,
+    arg2: u32,
+    arg3: u32,
+    arg4: ::std::os::raw::c_int,
+    arg5: ::std::os::raw::c_int,
+    arg6: ::std::os::raw::c_int,
+    arg7: u8,
+    arg8: u8,
+  ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn genlmsg_valid_hdr(
+    arg1: *mut nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genlmsg_validate(
+    arg1: *mut nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+    arg4: *mut nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genlmsg_parse(
+    arg1: *mut nlmsghdr,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut *mut nlattr,
+    arg4: ::std::os::raw::c_int,
+    arg5: *mut nla_policy,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genlmsg_hdr(arg1: *mut nlmsghdr) -> *mut genlmsghdr;
+}
+extern "C" {
+  pub fn genlmsg_data(arg1: *const genlmsghdr) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn genlmsg_user_hdr(arg1: *const genlmsghdr) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn genlmsg_user_data(
+    arg1: *const genlmsghdr,
+    arg2: ::std::os::raw::c_int,
+  ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+  pub fn genlmsg_user_datalen(
+    arg1: *const genlmsghdr,
+    arg2: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genlmsg_len(arg1: *const genlmsghdr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genlmsg_attrdata(arg1: *const genlmsghdr, arg2: ::std::os::raw::c_int) -> *mut nlattr;
+}
+extern "C" {
+  pub fn genlmsg_attrlen(
+    arg1: *const genlmsghdr,
+    arg2: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genl_op2name(
+    arg1: ::std::os::raw::c_int,
+    arg2: ::std::os::raw::c_int,
+    arg3: *mut ::std::os::raw::c_char,
+    arg4: usize,
+  ) -> *mut ::std::os::raw::c_char;
+}
+pub const NL_ACT_UNSPEC: _bindgen_ty_69 = 0;
+pub const NL_ACT_NEW: _bindgen_ty_69 = 1;
+pub const NL_ACT_DEL: _bindgen_ty_69 = 2;
+pub const NL_ACT_GET: _bindgen_ty_69 = 3;
+pub const NL_ACT_SET: _bindgen_ty_69 = 4;
+pub const NL_ACT_CHANGE: _bindgen_ty_69 = 5;
+pub const __NL_ACT_MAX: _bindgen_ty_69 = 6;
+pub type _bindgen_ty_69 = u32;
+pub type change_func_t = ::std::option::Option<
+  unsafe extern "C" fn(
+    arg1: *mut nl_cache,
+    arg2: *mut nl_object,
+    arg3: ::std::os::raw::c_int,
+    arg4: *mut ::std::os::raw::c_void,
+  ),
+>;
+pub type change_func_v2_t = ::std::option::Option<
+  unsafe extern "C" fn(
+    arg1: *mut nl_cache,
+    old_obj: *mut nl_object,
+    new_obj: *mut nl_object,
+    arg2: u64,
+    arg3: ::std::os::raw::c_int,
+    arg4: *mut ::std::os::raw::c_void,
+  ),
+>;
+extern "C" {
+  pub fn nl_cache_nitems(arg1: *mut nl_cache) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_nitems_filter(arg1: *mut nl_cache, arg2: *mut nl_object)
+    -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_get_ops(arg1: *mut nl_cache) -> *mut nl_cache_ops;
+}
+extern "C" {
+  pub fn nl_cache_get_first(arg1: *mut nl_cache) -> *mut nl_object;
+}
+extern "C" {
+  pub fn nl_cache_get_last(arg1: *mut nl_cache) -> *mut nl_object;
+}
+extern "C" {
+  pub fn nl_cache_get_next(arg1: *mut nl_object) -> *mut nl_object;
+}
+extern "C" {
+  pub fn nl_cache_get_prev(arg1: *mut nl_object) -> *mut nl_object;
+}
+extern "C" {
+  pub fn nl_cache_alloc(arg1: *mut nl_cache_ops) -> *mut nl_cache;
+}
+extern "C" {
+  pub fn nl_cache_alloc_and_fill(
+    arg1: *mut nl_cache_ops,
+    arg2: *mut nl_sock,
+    arg3: *mut *mut nl_cache,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_alloc_name(
+    arg1: *const ::std::os::raw::c_char,
+    arg2: *mut *mut nl_cache,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_subset(arg1: *mut nl_cache, arg2: *mut nl_object) -> *mut nl_cache;
+}
+extern "C" {
+  pub fn nl_cache_clone(arg1: *mut nl_cache) -> *mut nl_cache;
+}
+extern "C" {
+  pub fn nl_cache_clear(arg1: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_get(arg1: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_free(arg1: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_put(cache: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_add(arg1: *mut nl_cache, arg2: *mut nl_object) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_parse_and_add(arg1: *mut nl_cache, arg2: *mut nl_msg) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_move(arg1: *mut nl_cache, arg2: *mut nl_object) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_remove(arg1: *mut nl_object);
+}
+extern "C" {
+  pub fn nl_cache_refill(arg1: *mut nl_sock, arg2: *mut nl_cache) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_pickup(arg1: *mut nl_sock, arg2: *mut nl_cache) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_pickup_checkdup(arg1: *mut nl_sock, arg2: *mut nl_cache)
+    -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_resync(
+    arg1: *mut nl_sock,
+    arg2: *mut nl_cache,
+    arg3: change_func_t,
+    arg4: *mut ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_include(
+    arg1: *mut nl_cache,
+    arg2: *mut nl_object,
+    arg3: change_func_t,
+    arg4: *mut ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_include_v2(
+    arg1: *mut nl_cache,
+    arg2: *mut nl_object,
+    arg3: change_func_v2_t,
+    arg4: *mut ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_set_arg1(arg1: *mut nl_cache, arg2: ::std::os::raw::c_int);
+}
+extern "C" {
+  pub fn nl_cache_set_arg2(arg1: *mut nl_cache, arg2: ::std::os::raw::c_int);
+}
+extern "C" {
+  pub fn nl_cache_set_flags(arg1: *mut nl_cache, arg2: ::std::os::raw::c_uint);
+}
+extern "C" {
+  pub fn nl_cache_is_empty(arg1: *mut nl_cache) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_search(arg1: *mut nl_cache, arg2: *mut nl_object) -> *mut nl_object;
+}
+extern "C" {
+  pub fn nl_cache_find(arg1: *mut nl_cache, arg2: *mut nl_object) -> *mut nl_object;
+}
+extern "C" {
+  pub fn nl_cache_mark_all(arg1: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_dump(arg1: *mut nl_cache, arg2: *mut nl_dump_params);
+}
+extern "C" {
+  pub fn nl_cache_dump_filter(arg1: *mut nl_cache, arg2: *mut nl_dump_params, arg3: *mut nl_object);
+}
+extern "C" {
+  pub fn nl_cache_foreach(
+    arg1: *mut nl_cache,
+    cb: ::std::option::Option<
+      unsafe extern "C" fn(arg1: *mut nl_object, arg2: *mut ::std::os::raw::c_void),
+    >,
+    arg: *mut ::std::os::raw::c_void,
+  );
+}
+extern "C" {
+  pub fn nl_cache_foreach_filter(
+    arg1: *mut nl_cache,
+    arg2: *mut nl_object,
+    cb: ::std::option::Option<
+      unsafe extern "C" fn(arg1: *mut nl_object, arg2: *mut ::std::os::raw::c_void),
+    >,
+    arg: *mut ::std::os::raw::c_void,
+  );
+}
+extern "C" {
+  pub fn nl_cache_ops_lookup(arg1: *const ::std::os::raw::c_char) -> *mut nl_cache_ops;
+}
+extern "C" {
+  pub fn nl_cache_ops_lookup_safe(arg1: *const ::std::os::raw::c_char) -> *mut nl_cache_ops;
+}
+extern "C" {
+  pub fn nl_cache_ops_associate(
+    arg1: ::std::os::raw::c_int,
+    arg2: ::std::os::raw::c_int,
+  ) -> *mut nl_cache_ops;
+}
+extern "C" {
+  pub fn nl_cache_ops_associate_safe(
+    arg1: ::std::os::raw::c_int,
+    arg2: ::std::os::raw::c_int,
+  ) -> *mut nl_cache_ops;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl_msgtype {
+  _unused: [u8; 0],
+}
+extern "C" {
+  pub fn nl_msgtype_lookup(arg1: *mut nl_cache_ops, arg2: ::std::os::raw::c_int)
+    -> *mut nl_msgtype;
+}
+extern "C" {
+  pub fn nl_cache_ops_foreach(
+    cb: ::std::option::Option<
+      unsafe extern "C" fn(arg1: *mut nl_cache_ops, arg2: *mut ::std::os::raw::c_void),
+    >,
+    arg1: *mut ::std::os::raw::c_void,
+  );
+}
+extern "C" {
+  pub fn nl_cache_mngt_register(arg1: *mut nl_cache_ops) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngt_unregister(arg1: *mut nl_cache_ops) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngt_provide(arg1: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_mngt_unprovide(arg1: *mut nl_cache);
+}
+extern "C" {
+  pub fn nl_cache_mngt_require(arg1: *const ::std::os::raw::c_char) -> *mut nl_cache;
+}
+extern "C" {
+  pub fn nl_cache_mngt_require_safe(arg1: *const ::std::os::raw::c_char) -> *mut nl_cache;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl_cache_mngr {
+  _unused: [u8; 0],
+}
+extern "C" {
+  pub fn nl_cache_mngr_alloc(
+    arg1: *mut nl_sock,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+    arg4: *mut *mut nl_cache_mngr,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_add(
+    arg1: *mut nl_cache_mngr,
+    arg2: *const ::std::os::raw::c_char,
+    arg3: change_func_t,
+    arg4: *mut ::std::os::raw::c_void,
+    arg5: *mut *mut nl_cache,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_add_cache(
+    mngr: *mut nl_cache_mngr,
+    cache: *mut nl_cache,
+    cb: change_func_t,
+    data: *mut ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_add_cache_v2(
+    mngr: *mut nl_cache_mngr,
+    cache: *mut nl_cache,
+    cb: change_func_v2_t,
+    data: *mut ::std::os::raw::c_void,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_get_fd(arg1: *mut nl_cache_mngr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_poll(
+    arg1: *mut nl_cache_mngr,
+    arg2: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_data_ready(arg1: *mut nl_cache_mngr) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn nl_cache_mngr_info(arg1: *mut nl_cache_mngr, arg2: *mut nl_dump_params);
+}
+extern "C" {
+  pub fn nl_cache_mngr_free(arg1: *mut nl_cache_mngr);
+}
+extern "C" {
+  pub fn nl_cache_ops_get(arg1: *mut nl_cache_ops);
+}
+extern "C" {
+  pub fn nl_cache_ops_put(arg1: *mut nl_cache_ops);
+}
+extern "C" {
+  pub fn nl_cache_ops_set_flags(arg1: *mut nl_cache_ops, arg2: ::std::os::raw::c_uint);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct genl_family {
+  _unused: [u8; 0],
+}
+extern "C" {
+  pub fn genl_family_alloc() -> *mut genl_family;
+}
+extern "C" {
+  pub fn genl_family_put(arg1: *mut genl_family);
+}
+extern "C" {
+  pub fn genl_family_get_id(arg1: *mut genl_family) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+  pub fn genl_family_set_id(arg1: *mut genl_family, arg2: ::std::os::raw::c_uint);
+}
+extern "C" {
+  pub fn genl_family_get_name(arg1: *mut genl_family) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+  pub fn genl_family_set_name(arg1: *mut genl_family, arg2: *const ::std::os::raw::c_char);
+}
+extern "C" {
+  pub fn genl_family_get_version(arg1: *mut genl_family) -> u8;
+}
+extern "C" {
+  pub fn genl_family_set_version(arg1: *mut genl_family, arg2: u8);
+}
+extern "C" {
+  pub fn genl_family_get_hdrsize(arg1: *mut genl_family) -> u32;
+}
+extern "C" {
+  pub fn genl_family_set_hdrsize(arg1: *mut genl_family, arg2: u32);
+}
+extern "C" {
+  pub fn genl_family_get_maxattr(arg1: *mut genl_family) -> u32;
+}
+extern "C" {
+  pub fn genl_family_set_maxattr(arg1: *mut genl_family, arg2: u32);
+}
+extern "C" {
+  pub fn genl_family_add_op(
+    arg1: *mut genl_family,
+    arg2: ::std::os::raw::c_int,
+    arg3: ::std::os::raw::c_int,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genl_family_add_grp(
+    arg1: *mut genl_family,
+    arg2: u32,
+    arg3: *const ::std::os::raw::c_char,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genl_ctrl_alloc_cache(
+    arg1: *mut nl_sock,
+    arg2: *mut *mut nl_cache,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genl_ctrl_search(arg1: *mut nl_cache, arg2: ::std::os::raw::c_int) -> *mut genl_family;
+}
+extern "C" {
+  pub fn genl_ctrl_search_by_name(
+    arg1: *mut nl_cache,
+    arg2: *const ::std::os::raw::c_char,
+  ) -> *mut genl_family;
+}
+extern "C" {
+  pub fn genl_ctrl_resolve(
+    arg1: *mut nl_sock,
+    arg2: *const ::std::os::raw::c_char,
+  ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+  pub fn genl_ctrl_resolve_grp(
+    sk: *mut nl_sock,
+    family: *const ::std::os::raw::c_char,
+    grp: *const ::std::os::raw::c_char,
+  ) -> ::std::os::raw::c_int;
 }

@@ -11,8 +11,8 @@ mod builder {
   pub const OS: &str = "linux";
 
   use bindgen;
-  fn make_bindings(path: &str) -> bindgen::Bindings {
-    let bindings = bindgen::builder()
+  pub fn build_bindings() {
+    bindgen::builder()
       .raw_line("#![allow(non_snake_case)]")
       .raw_line("#![allow(non_camel_case_types)]")
       .raw_line("#![allow(non_upper_case_globals)]")
@@ -27,23 +27,25 @@ mod builder {
       .whitelist_type("nl.*")
       .whitelist_function("genl.*")
       .whitelist_type("genl.*")
-      .header(path)
+      .header_contents(
+        "input.h",
+        "
+        #include <netlink/netlink.h>
+        #include <netlink/msg.h>
+        #include <netlink/attr.h>
+        #include <netlink/genl/genl.h>
+        #include <netlink/genl/family.h>
+        #include <netlink/genl/ctrl.h>
+        ",
+      )
       .clang_arg("-I/usr/include/libnl3")
-      .clang_arg("-I/usr/lib/gcc/x86_64-linux-gnu/8/include");
-
-    bindings.generate().unwrap()
-  }
-
-  pub fn build_bindings() {
-    std::fs::create_dir_all(&format!("./src/os/{}/", OS)).unwrap();
-
-    make_bindings("/usr/include/libnl3/netlink/netlink.h")
-      .write_to_file(&format!("./src/os/{}/netlink.rs", OS))
+      .clang_arg("-I/usr/lib/gcc/x86_64-linux-gnu/8/include")
+      .generate()
+      .unwrap()
+      .write_to_file(&format!("./src/os/{}.rs", OS))
       .unwrap();
 
-    make_bindings("/usr/include/libnl3/netlink/genl/genl.h")
-      .write_to_file(&format!("./src/os/{}/genl.rs", OS))
-      .unwrap();
+    // genl_ctrl_resolve
   }
 }
 
